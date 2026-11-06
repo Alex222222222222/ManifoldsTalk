@@ -1,0 +1,48 @@
+\documentclass[aspectratio=169,10pt]{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{whale}
+
+\usepackage{amsmath,amssymb}
+\usepackage{mathtools}
+\usepackage{tikz}
+
+\title[Manifolds \& de Rham Cohomology]{From Smooth Manifolds to de Rham Cohomology}
+\subtitle{Intuition, Topology, and Significance}
+\author{Speaker}
+\institute{Department of Mathematics}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+\section{Motivation: Local vs. Global}
+\begin{frame}{Why Smooth Manifolds?}
+  \begin{itemize}
+    \item Bridging local Euclidean coordinates with global geometry.
+    \item Common ground: PDEs on manifolds, optimization on Riemannian manifolds, and algebraic varieties.
+  \end{itemize}
+\end{frame}
+
+\section{From Forms to Cohomology}
+\begin{frame}{Differential Forms \& Integration}
+  \begin{itemize}
+    \item What is a differential form?
+    \item Stokes' theorem: $\int_{\partial M} \omega = \int_M d\omega$.
+  \end{itemize}
+\end{frame}
+
+\section{de Rham Cohomology \& Significance}
+\begin{frame}{Detecting Holes Analytically}
+  \begin{itemize}
+    \item Closed forms modulo exact forms: $H^k_{\mathrm{dR}}(M) = \ker d_k / \operatorname{im} d_{k-1}$.
+    \item Why this matters across mathematics.
+  \end{itemize}
+\end{frame}
+
+\end{document}
