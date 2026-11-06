@@ -6,6 +6,7 @@
 \usepackage{mathtools}
 \usepackage{geometry}
 \geometry{margin=1in}
+\usepackage{tikz}
 \usepackage{hyperref}
 
 \newtheorem{theorem}{Theorem}[section]
@@ -51,6 +52,97 @@ Before introducing smooth manifolds, we explicitly state the common ground used 
     \item \textbf{Basic Linear Algebra}:
     Vector spaces, linear maps, matrix representations, determinants, and dual vector spaces (linear functionals).
 \end{enumerate}
+
+\section{Why Do We Care About Manifolds? A Concrete Example}
+\label{sec:why_manifolds}
+
+\subsection{A Real-World Motivation: Temperature on Earth}
+Consider our planet modeled as a unit 2-sphere in Euclidean 3-space:
+\begin{equation}
+S^2 = \{ x \in \mathbb{R}^3 \mid |x| = 1 \}.
+\end{equation}
+Suppose we measure the surface temperature at every point on Earth. This defines a continuous (and physically smooth) scalar function:
+\begin{equation}
+f \colon S^2 \to \mathbb{R}.
+\end{equation}
+
+If our goal is purely \emph{local}---such as analyzing the weather across a single city or province---we can treat the surrounding region as a flat domain in $\mathbb{R}^2$. In that local setting, ordinary multivariable calculus from Section~\ref{sec:preliminaries} works without issue: partial derivatives, gradients, and directional derivatives behave exactly as expected.
+
+However, once we study the \emph{global} behavior of this function across the planet, standard calculus in $\mathbb{R}^3$ fails:
+\begin{enumerate}
+    \item \textbf{$S^2$ is not an open subset of $\mathbb{R}^3$}: The standard partial derivative $\frac{\partial f}{\partial x_i}$ requires varying coordinate $x_i$ while keeping the other two coordinates fixed. But moving along any axis in $\mathbb{R}^3$ immediately pulls us off the sphere! The function $f$ is physically and mathematically undefined outside $S^2$.
+    \item \textbf{Extending $f$ to $\mathbb{R}^3$ is unnatural and arbitrary}: One could attempt to invent an extension of $f$ to an open neighborhood of $S^2$ in $\mathbb{R}^3$ (for example, declaring temperature to be constant along radial lines). However, physical laws and intrinsic geometry should not depend on arbitrary definitions made in an ambient space that does not belong to the problem.
+    \item \textbf{Valid directional derivatives must be tangential}: A legitimate derivative on Earth must measure rates of change along directions that lie along the surface, rather than pointing into the Earth's interior or out into space.
+\end{enumerate}
+This failure demonstrates why manifolds are necessary: we need a systematic way to perform calculus directly on curved spaces without depending on an ambient Euclidean space or arbitrary extensions.
+
+\subsection{The Intuition: Local Euclidean Approximation}
+The central intuition of a manifold is \textbf{local approximation}. At any point $p \in S^2$, a sufficiently small neighborhood $U \subset S^2$ around $p$ looks like an open region in a flat Euclidean plane $\mathbb{R}^2$.
+
+\begin{figure}[htbp]
+\centering
+\input{../figures/sphere_chart.tex}
+\caption{The local coordinate chart: an open neighborhood $U$ on the sphere $S^2$ is mapped homeomorphically to an open set $\phi(U) \subseteq \mathbb{R}^2$, allowing local calculus on the surface.}
+\label{fig:sphere_chart}
+\end{figure}
+
+\paragraph{Analogy with Algebraic Varieties.}
+For those with a background in algebraic geometry, this approach is identical in spirit:
+\begin{itemize}
+    \item An \textbf{algebraic variety} is not globally affine; it is constructed by gluing together affine open subsets along regular transition functions.
+    \item A \textbf{smooth manifold} is not globally $\mathbb{R}^n$; it is constructed by gluing together open subsets of $\mathbb{R}^n$ along smooth ($C^\infty$) transition functions.
+\end{itemize}
+In both domains, we understand global spaces by patching together familiar local models using structure-preserving transition maps.
+
+\subsection{Constructing \texorpdfstring{$S^2$}{S²} by Gluing Two Disks}
+Because the sphere $S^2$ is compact and has non-trivial topology, no single flat coordinate system can cover it without singularities or edge tears. However, we can construct and cover $S^2$ completely using only \textbf{two} open charts via stereographic projection:
+\begin{enumerate}
+    \item Remove the North Pole $N = (0,0,1)$: the open set $U_N = S^2 \setminus \{N\}$ projects from $N$ onto the equatorial plane $\mathbb{R}^2$, which is diffeomorphic to an open 2-disk.
+    \item Remove the South Pole $S = (0,0,-1)$: the open set $U_S = S^2 \setminus \{S\}$ projects from $S$ onto another copy of $\mathbb{R}^2$.
+\end{enumerate}
+The overlap $U_N \cap U_S = S^2 \setminus \{N, S\}$ corresponds to the punctured plane $\mathbb{R}^2 \setminus \{0\}$. On this overlap, the transition map between the two charts is given explicitly by inversion:
+\begin{equation}
+\psi_{S} \circ \psi_{N}^{-1}(u) = \frac{u}{|u|^2}, \quad u \in \mathbb{R}^2 \setminus \{0\}.
+\end{equation}
+Since $|u| \neq 0$ on the overlap, this transition map is infinitely differentiable ($C^\infty$) in both directions. In the talk, this step will be illustrated with an animated visual demonstration showing two planar disks cut from $\mathbb{R}^2$ and smoothly glued together along their boundaries to form the sphere.
+
+\subsection{The Precise Definition of a Smooth Manifold}
+We now state the formal definition, following standard references such as Lee \cite[Chapter~1]{lee2013smooth} and Tu \cite[Chapter~2]{tu2011introduction}.
+
+\begin{definition}[Topological Manifold \cite{lee2013smooth, tu2011introduction}]
+A topological space $M$ is a \textbf{topological manifold of dimension $n$} if:
+\begin{enumerate}
+    \item $M$ is \textbf{Hausdorff}: for every pair of distinct points $p, q \in M$, there exist disjoint open sets $U, V$ with $p \in U$ and $q \in V$.
+    \item $M$ is \textbf{second-countable}: $M$ has a countable basis for its topology.
+    \item $M$ is \textbf{locally Euclidean of dimension $n$}: every point $p \in M$ has an open neighborhood $U$ that is homeomorphic to an open subset of $\mathbb{R}^n$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Coordinate Chart and Smooth Atlas \cite{lee2013smooth, tu2011introduction}]
+Let $M$ be a topological $n$-manifold.
+\begin{enumerate}
+    \item A \textbf{coordinate chart} on $M$ is a pair $(U, \phi)$, where $U \subseteq M$ is an open set and $\phi \colon U \to \phi(U) \subseteq \mathbb{R}^n$ is a homeomorphism onto an open subset of $\mathbb{R}^n$.
+    \item Two charts $(U, \phi)$ and $(V, \psi)$ are \textbf{smoothly compatible} if either $U \cap V = \emptyset$, or the transition map
+    \begin{equation}
+    \psi \circ \phi^{-1} \colon \phi(U \cap V) \to \psi(U \cap V)
+    \end{equation}
+    is a $C^\infty$ diffeomorphism between open subsets of $\mathbb{R}^n$ (in the sense of multivariable calculus from Section~\ref{sec:preliminaries}).
+    \item A \textbf{smooth atlas} $\mathcal{A}$ on $M$ is a collection of smoothly compatible charts $\{(U_\alpha, \phi_\alpha)\}_{\alpha \in I}$ whose domains cover $M$:
+    \begin{equation}
+    \bigcup_{\alpha \in I} U_\alpha = M.
+    \end{equation}
+    \item A smooth atlas $\mathcal{A}$ is \textbf{maximal} if it is not contained in any strictly larger smooth atlas. A maximal smooth atlas is called a \textbf{smooth structure} on $M$.
+\end{enumerate}
+A \textbf{smooth manifold} is a topological manifold $M$ equipped with a smooth structure.
+\end{definition}
+
+\subsection{The Benefit: Uniting Local Calculus with Global Coherence}
+Why is this definition so effective?
+\begin{itemize}
+    \item \textbf{Locally}: We can calculate using standard multivariable calculus from Section~\ref{sec:preliminaries} by pulling functions and vectors back to open subsets of $\mathbb{R}^n$ via charts. No new computational mechanics are needed.
+    \item \textbf{Globally}: Because the transition maps $\psi \circ \phi^{-1}$ are smooth diffeomorphisms, the multivariate chain rule guarantees that all calculus operations (smoothness of functions, directional derivatives, vector fields, and differential forms) are coordinate-independent.
+\end{itemize}
+This allows us to study global derivatives, PDEs on curved geometries, optimization on manifolds, and global topological invariants (such as de Rham cohomology) rigorously.
 
 \section*{Acknowledgments}
 AI was used in typesetting and structuring this manuscript and the accompanying presentation slides. Every part of the mathematics is written by hand.

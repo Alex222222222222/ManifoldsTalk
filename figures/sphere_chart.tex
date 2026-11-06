@@ -1,0 +1,46 @@
+\begin{tikzpicture}[scale=0.9, >=stealth]
+  % Left: Sphere S^2
+  \begin{scope}[shift={(0,0)}]
+    % Sphere outline
+    \draw[thick, fill=blue!5] (0,0) circle (1.8);
+    % Equator (front solid, back dashed)
+    \draw[dashed, gray] (1.8,0) arc (0:180:1.8 and 0.5);
+    \draw[thick, gray] (-1.8,0) arc (180:360:1.8 and 0.5);
+    % North and South labels
+    \node[above] at (0, 1.85) {$N$};
+    \fill (0,1.8) circle (1.5pt);
+    \node[below] at (0, -1.85) {$S$};
+    \fill (0,-1.8) circle (1.5pt);
+
+    % Local open patch U on sphere
+    \draw[thick, fill=orange!30, opacity=0.7] 
+      (0.2, 0.4) to[bend left=20] (1.1, 0.8) 
+      to[bend right=15] (1.2, -0.1) 
+      to[bend left=15] (0.3, -0.3) 
+      to[bend right=20] cycle;
+    \node at (0.7, 0.3) {$U$};
+    \fill (0.75, 0.15) circle (1.5pt) node[right, font=\footnotesize] {$p$};
+    \node[below] at (0, -2.2) {Surface $S^2 \subset \mathbb{R}^3$};
+  \end{scope}
+
+  % Middle: Coordinate chart map phi
+  \draw[->, very thick, blue!80!black] (1.8, 0.5) to[bend left=25] 
+    node[above, font=\small] {$\phi$ (coordinate chart)} 
+    node[below, font=\scriptsize] {homeomorphism} (4.5, 0.8);
+
+  % Right: Flat open set in R^2
+  \begin{scope}[shift={(6,0)}]
+    % Axes
+    \draw[->, gray, thin] (-0.3, -1.5) -- (-0.3, 1.8) node[above, font=\footnotesize] {$x_2$};
+    \draw[->, gray, thin] (-1.5, -0.3) -- (2.0, -0.3) node[right, font=\footnotesize] {$x_1$};
+    % Flat open region phi(U)
+    \draw[thick, fill=orange!30, opacity=0.7] 
+      (0, 0.2) to[bend left=30] (1.3, 1.1) 
+      to[bend right=20] (1.4, -0.8) 
+      to[bend left=20] (0.1, -1.0) 
+      to[bend right=20] cycle;
+    \node at (0.7, 0.1) {$\phi(U) \subseteq \mathbb{R}^2$};
+    \fill (0.7, -0.3) circle (1.5pt) node[above right, font=\footnotesize] {$\phi(p)$};
+    \node[below] at (0.3, -2.2) {Local Euclidean model $\mathbb{R}^2$};
+  \end{scope}
+\end{tikzpicture}
