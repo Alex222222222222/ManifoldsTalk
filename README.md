@@ -14,6 +14,7 @@ Talk manuscript and Beamer presentation slides on smooth manifolds and de Rham c
 .
 ├── README.md
 ├── .gitignore
+├── references.bib    # Shared BibTeX bibliography for manuscript and slides
 ├── manuscript/       # LaTeX / Markdown manuscript drafts and talk notes
 │   └── main.tex      # Manuscript document root
 ├── slides/           # Beamer presentation source files
@@ -25,10 +26,10 @@ Talk manuscript and Beamer presentation slides on smooth manifolds and de Rham c
 
 Build the manuscript:
 ```bash
-latexmk -pdf manuscript/main.tex
+latexmk -pdf -cd manuscript/main.tex
 ```
 
 Build the slides:
 ```bash
-latexmk -pdf slides/slides.tex
+latexmk -pdf -cd slides/slides.tex
 ```
