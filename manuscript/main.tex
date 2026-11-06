@@ -95,16 +95,26 @@ The central intuition of a manifold is \textbf{local approximation}. At any poin
 An algebraic variety is not globally affine; it is constructed by gluing together affine open subsets along regular transition functions.
 
 \subsection{Constructing \texorpdfstring{$S^2$}{S²} by Gluing Two Disks}
-Because the sphere $S^2$ is compact and has non-trivial topology, no single flat coordinate system can cover it without singularities or edge tears. However, we can construct and cover $S^2$ completely using only \textbf{two} open charts via stereographic projection:
+\label{sec:gluing_s2}
+
+Instead of working through formal coordinate formulas, we can understand how $S^2$ is constructed from flat Euclidean spaces through an intuitive physical deformation in three steps:
+
 \begin{enumerate}
-    \item Remove the North Pole $N = (0,0,1)$: the open set $U_N = S^2 \setminus \{N\}$ projects from $N$ onto the equatorial plane $\mathbb{R}^2$, which is diffeomorphic to an open 2-disk.
-    \item Remove the South Pole $S = (0,0,-1)$: the open set $U_S = S^2 \setminus \{S\}$ projects from $S$ onto another copy of $\mathbb{R}^2$.
+    \item \textbf{Cut Two Flat Disks}: Start with two parallel planes (two copies of $\mathbb{R}^2$), one on the left and one on the right. Cut an open disk out of each plane: $D_1$ from the left plane and $D_2$ from the right plane.
+    \item \textbf{Deform into Hemispheres}: Bulge each flat disk outward into an open half-sphere (a left bowl and a right bowl). We keep them slightly larger than exact half-spheres so their boundaries extend past the equator.
+    \item \textbf{Glue with Overlap}: Bring the two curved bowls together and glue them along a thin equatorial strip where they overlap.
 \end{enumerate}
-The overlap $U_N \cap U_S = S^2 \setminus \{N, S\}$ corresponds to the punctured plane $\mathbb{R}^2 \setminus \{0\}$. On this overlap, the transition map between the two charts is given explicitly by inversion:
-\begin{equation}
-\psi_{S} \circ \psi_{N}^{-1}(u) = \frac{u}{|u|^2}, \quad u \in \mathbb{R}^2 \setminus \{0\}.
-\end{equation}
-Since $|u| \neq 0$ on the overlap, this transition map is infinitely differentiable ($C^\infty$) in both directions. In the talk, this step will be illustrated with an animated visual demonstration showing two planar disks cut from $\mathbb{R}^2$ and smoothly glued together along their boundaries to form the sphere.
+
+\begin{figure}[htbp]
+\centering
+\input{../figures/sphere_gluing.tex}
+\caption{Constructing $S^2$ by gluing two disks: (1) cut two flat disks from parallel planes, (2) deform them into open hemispherical bowls, and (3) glue them together along an overlapping equatorial collar.}
+\label{fig:sphere_gluing}
+\end{figure}
+
+Because each patch is an open disk in $\mathbb{R}^2$, calculus locally on each patch is just flat calculus in $\mathbb{R}^2$. The smooth transition across the overlapping strip ensures that derivatives and physical fields pass from one hemisphere to the other without seams.
+
+\paragraph{Note on Animated Visualization.} Standard PDF readers do not render animated GIFs. In this written manuscript, the process is presented as the three-stage storyboard in Figure~\ref{fig:sphere_gluing}. For live presentation slides and digital display, an animated version demonstrating this continuous deformation and gluing is generated as an animated GIF at \texttt{figures/gluing\_s2.gif}.
 
 \subsection{The Precise Definition of a Smooth Manifold}
 We now state the formal definition, following standard references such as Lee \cite[Chapter~1]{lee2013smooth} and Tu \cite[Chapter~2]{tu2011introduction}.
