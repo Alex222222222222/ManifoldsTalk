@@ -25,19 +25,36 @@ Talk notes and manuscript for an intuitive 45-minute presentation bridging smoot
 \end{abstract}
 
 % Place manuscript content here.
-\section{Target Audience and Assumed Background}
-\label{sec:background}
+\section{Preliminary Knowledge Expected for the Audience}
+\label{sec:preliminaries}
 
-This exposition is designed for a 45-minute talk with an audience of mixed backgrounds---undergraduates, PhD students (in PDE modeling and algebraic geometry), and researchers (in optimization, PDEs, and algebra). We prioritize geometric intuition and conceptual clarity over technical exhaustiveness.
+Before introducing smooth manifolds, we explicitly state the common ground used throughout this talk. The audience brings diverse backgrounds across pure mathematics, PDE modeling, optimization, and algebra. To keep the talk accessible and inspiring rather than burdened by technical prerequisites, we only rely on three familiar pillars from standard undergraduate mathematics:
 
-We assume the following foundations:
 \begin{enumerate}
-    \item \textbf{Euclidean Space}: Familiarity with $\mathbb{R}^n$ as a metric space, along with basic topology (open and closed subsets).
-    \item \textbf{Multivariable Calculus}: Given an open subset $U \subseteq \mathbb{R}^n$, what it means for a map $f \colon U \to \mathbb{R}^m$ to be continuous, differentiable, and smooth ($C^\infty$, meaning partial derivatives of all orders exist and are continuous).
-    \item \textbf{Linear Algebra}: Vector spaces, bases, linear transformations, matrices, determinants, and dual spaces.
+    \item \textbf{Euclidean Space $\mathbb{R}^n$ as a Metric Space}:
+    We assume familiarity with $\mathbb{R}^n$ equipped with its standard Euclidean distance, and what it means for a subset $U \subseteq \mathbb{R}^n$ to be open or closed.
+    
+    \item \textbf{Calculus of Several Variables}:
+    Given an open subset $U \subseteq \mathbb{R}^n$ and a map $f \colon U \to \mathbb{R}^m$:
+    \begin{itemize}
+        \item When $f$ is continuous (preimages of open sets are open, or $\lim_{x \to p} f(x) = f(p)$).
+        \item How to differentiate $f$: the total derivative / Jacobian matrix represents the best linear approximation to $f$ at a point.
+        \item When $f$ is smooth ($C^\infty$): partial derivatives of every order exist and are continuous on $U$.
+    \end{itemize}
+    This calculus on open subsets of $\mathbb{R}^n$ is the primary building block. A manifold is simply the geometric object that allows us to transfer this calculus to spaces that are not flat globally.
+
+    \item \textbf{Basic Linear Algebra}:
+    Vector spaces, linear maps, matrix representations, determinants (which control volume expansion and orientation), and dual vector spaces (linear functionals).
 \end{enumerate}
 
-\paragraph{Pedagogical Focus on Surfaces.} To maintain intuition across all backgrounds, our running examples focus primarily on \textbf{surfaces} (2-dimensional manifolds), both embedded in $\mathbb{R}^3$ (such as the sphere $S^2$ and the torus $T^2$) and in the plane (such as the punctured plane $\mathbb{R}^2 \setminus \{0\}$).
+\paragraph{Our Visual Playground: 2-Dimensional Surfaces.}
+To make abstract definitions concrete, nearly all our examples will focus on \textbf{surfaces} (2-dimensional manifolds). We will frequently return to:
+\begin{itemize}
+    \item The unit sphere $S^2 \subset \mathbb{R}^3$,
+    \item The 2-torus $T^2 \subset \mathbb{R}^3$,
+    \item The punctured plane $\mathbb{R}^2 \setminus \{0\}$ or cylinder $S^1 \times \mathbb{R}$.
+\end{itemize}
+Surfaces are ideal because they can be sketched directly on the board while exhibiting all the essential topological and geometric phenomena we need.
 
 \nocite{lee2013smooth,bott1982differential,tu2011introduction}
 
