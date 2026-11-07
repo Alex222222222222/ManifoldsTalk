@@ -367,10 +367,14 @@
         moves, its assigned cotangent vector changes smoothly too. We will
         not formalize this bundle-level notion here.
     \end{remark}
-    At a point $p$, the cotangent vector $\omega_p$ acts on a tangent vector
-    $v \in T_pM$ and returns the real number $\omega_p(v)$. For a smooth
-    function $f \in C^\infty(M)$, its differential is the basic example:
-    $df_p(v)=v(f)$.
+    For a smooth function $f \in C^\infty(M)$, its differential at $p$ is
+    $df_p$, defined by $df_p(v)=v(f)$. Since $df_p \in T_p^*M$, these
+    pointwise differentials define a map
+    \begin{equation}
+        df \colon M \to T^*M, \qquad df(p) = (p, df_p).
+    \end{equation}
+    By a common abuse of notation, this map itself is called the differential
+    $df$, or a differential $1$-form.
 
     \subsection{Higher Differential Forms}
     Generalizing $1$-forms, a \textbf{differential $k$-form} $\omega$ on $M$
