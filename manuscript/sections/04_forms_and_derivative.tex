@@ -1,0 +1,187 @@
+    \section{Differential Forms and the Exterior Derivative}
+    \label{sec:forms-derivative}
+
+    \subsection{The Cotangent Bundle: A Collection of Linear Measurements}
+    At each point $p \in M$, the cotangent space $T_p^*M$ consists of linear
+    functionals on tangent vectors. To keep our focus on intuition and avoid
+    the technical overhead of fiber bundles, we define the cotangent bundle
+    directly as the set of pairs:
+    \begin{equation}
+        T^*M = \left\{
+            (p, \omega_p) \;\middle|\; p \in M, \; \omega_p \in T_p^*M
+        \right\}.
+    \end{equation}
+    Intuitively, $T^*M$ simply collects every point of the manifold together
+    with all possible cotangent vectors (linear measurements) based at that
+    point. Lee's Proposition 11.9 gives it a smooth rank-$n$ vector bundle
+    structure over $M$ \cite[Proposition~11.9, pp.~276--277]{lee2013smooth}.
+    Since the base has dimension $n$ and each fiber has dimension $n$, the
+    total space $T^*M$ has dimension $2n$.
+
+    \subsection{Differential 1-Forms}
+    With the cotangent bundle in hand, a \textbf{differential $1$-form}
+    $\omega$ on $M$ assigns a cotangent vector $\omega_p \in T_p^*M$ to each
+    point $p$, varying smoothly as $p$ moves. Concretely, $\omega$ is the set
+    map
+    \begin{equation}
+        \omega \colon M \to T^*M, \qquad \omega(p) = (p, \omega_p).
+    \end{equation}
+
+    \begin{remark}
+        Here, ``varying smoothly'' is an informal description: as the point
+        moves, its assigned cotangent vector changes smoothly too. We will not
+        formalize this bundle-level notion here.
+    \end{remark}
+
+    This global definition works over the whole sphere: at each point $p$,
+    there is one cotangent vector $\omega_p$, whether we describe $p$ using
+    the left-hemisphere patch, the right-hemisphere patch, or both on their
+    overlap. When we need actual numerical components, we choose a patch and
+    do the familiar local calculation there.
+
+    For a smooth function $f \in C^\infty(M)$, its differential at $p$ is
+    $df_p$, defined by $df_p(v)=v(f)$. Since $df_p \in T_p^*M$, these
+    pointwise differentials define a map
+    \begin{equation}
+        df \colon M \to T^*M, \qquad df(p) = (p, df_p).
+    \end{equation}
+    By a common abuse of notation, this map itself is called the differential
+    $df$, or a differential $1$-form.
+
+    \subsection{Multilinear and Alternating Maps}
+    To move from $1$-forms to higher differential forms, we recall the
+    algebraic concept of multilinear and alternating maps on a vector space
+    $V$.
+
+    \begin{definition}[Multilinear and Alternating Maps]
+        Let $V$ be a real vector space. A map
+        \[
+            T \colon \underbrace{V \times \dots \times V}_{k \text{ copies}}
+            \to \mathbb{R}
+        \]
+        is \textbf{multilinear} (or a $k$-tensor) if it is linear in each
+        argument when all other $k-1$ arguments are held fixed.
+
+        A multilinear map $T$ is \textbf{alternating} if swapping any two
+        arguments reverses its sign:
+        \begin{equation}
+            T(v_1, \dots, v_i, \dots, v_j, \dots, v_k)
+            = -T(v_1, \dots, v_j, \dots, v_i, \dots, v_k).
+        \end{equation}
+        Consequently, if any two input vectors are identical ($v_i = v_j$ for
+        $i \neq j$), an alternating map necessarily evaluates to zero:
+        $T(\dots, v, \dots, v, \dots) = 0$.
+    \end{definition}
+
+    \subsection{The Exterior Product}
+    To combine forms of degree $k$ and $l$ into an alternating form of degree
+    $k+l$, we introduce the \textbf{exterior product} (or \textbf{wedge
+    product}):
+    \begin{equation}
+        \wedge \colon \Omega^k(M) \times \Omega^l(M) \to \Omega^{k+l}(M).
+    \end{equation}
+    For two $1$-forms $\alpha$ and $\beta$, their wedge product at a point $p$
+    is the alternating $2$-tensor defined by
+    \begin{equation}
+        (\alpha \wedge \beta)_p(v,w)
+        = \alpha_p(v)\beta_p(w) - \alpha_p(w)\beta_p(v),
+        \qquad v,w \in T_pM.
+    \end{equation}
+    The wedge product is bilinear and associative, and it satisfies the graded
+    anticommutative rule $\alpha \wedge \beta = (-1)^{kl} \beta \wedge
+    \alpha$. Having this product in place will be indispensable when
+    formulating the axiomatic rules for differentiation, where it governs how
+    derivatives distribute across products.
+
+    \subsection{Higher Differential Forms: At a Point and Globally}
+    We can now define differential forms of arbitrary degree $k$, following
+    the approach of Munkres (see \cite[Chapter~6, p.~248]{munkres1991analysis}):
+    \begin{enumerate}
+        \item \textbf{At a single point $p \in M$}:\\
+            A \textbf{$k$-form at $p$} is an alternating multilinear map on
+            the tangent space $T_pM$:
+            \[
+                \omega_p \colon
+                \underbrace{T_pM \times \dots \times T_pM}_{k \text{ copies}}
+                \to \mathbb{R}.
+            \]
+        \item \textbf{On the manifold $M$ as a whole}:\\
+            A \textbf{differential $k$-form} $\omega$ on $M$ is a smooth
+            choice of an alternating multilinear map at each point. As Munkres
+            defines (see \cite[p.~248]{munkres1991analysis}), if $\omega(p)$ is
+            an alternating $k$-tensor on the tangent space for each point $p$,
+            varying smoothly with $p$, then $\omega$ is called a differential
+            form of order $k$ (or simply a $k$-form).
+    \end{enumerate}
+
+    We denote the space of smooth $k$-forms on $M$ by $\Omega^k(M)$, with
+    $\Omega^0(M) = C^\infty(M)$ (smooth scalar functions).
+
+    A crucial dimensional consequence follows immediately: on an
+    $n$-dimensional manifold, any alternating multilinear map on more than $n$
+    tangent vectors must vanish, because any set of $k > n$ vectors in an
+    $n$-dimensional space is linearly dependent. Hence, $\Omega^k(M) = \{0\}$
+    for all $k > n$. Top-degree forms in $\Omega^n(M)$ represent oriented
+    volume forms, which are the natural objects to integrate over
+    $n$-dimensional manifolds.
+
+    \subsection{Why Are Forms Alternating? The Connection to Curl}
+    Why do differential forms demand this alternating property, rather than
+    permitting arbitrary multilinear maps? The fundamental reason is
+    geometric: forms are designed to measure \textbf{oriented, signed
+    geometric quantities} such as flux and circulation.
+
+    Consider the classical curl from vector calculus in $\mathbb{R}^3$. For a
+    smooth vector field $F = (F_1, F_2, F_3)$, the component of curl
+    perpendicular to the $xy$-plane measures circulation around the $z$-axis:
+    \begin{equation}
+        (\operatorname{curl} F)_z
+        = \frac{\partial F_2}{\partial x} - \frac{\partial F_1}{\partial y}.
+    \end{equation}
+    Notice the essential minus sign: swapping the order of the two directions
+    ($x$ and $y$) reverses the orientation of the loop, reversing the measured
+    circulation. When $F$ is represented as a $1$-form and differentiated, the
+    resulting $2$-form $\omega$ evaluates on two tangent vectors $v, w$ with
+    this exact antisymmetry: $\omega(v, w) = -\omega(w, v)$. The alternating
+    property is precisely the algebraic tool that keeps track of geometric
+    orientation.
+
+    \subsection{The Exterior Derivative}
+    The central operator of differential topology is the \textbf{exterior
+    derivative} $d$. It takes each $k$-form to a $(k+1)$-form:
+    \begin{equation}
+        d \colon \Omega^k(M) \to \Omega^{k+1}(M).
+    \end{equation}
+    As detailed in \cite[Theorem~14.23, pp.~363--364]{lee2013smooth}, the
+    operator $d$ is uniquely determined by three fundamental rules:
+    \begin{enumerate}
+        \item \textbf{On $0$-forms}:\\
+            For a smooth function $f \in \Omega^0(M)$, $df$ is the
+            differential defined in Section~\ref{sec:tangent-cotangent}.
+        \item \textbf{Graded Leibniz Rule}:\\
+            For $\alpha \in \Omega^k(M)$ and $\beta \in \Omega^l(M)$,
+            \[
+                d(\alpha \wedge \beta)
+                = d\alpha \wedge \beta + (-1)^k \alpha \wedge d\beta.
+            \]
+        \item \textbf{Nilpotence (The Master Identity)}:\\
+            Applying the exterior derivative twice always yields zero:
+            \[
+                d^2 = d \circ d = 0.
+            \]
+    \end{enumerate}
+
+    \paragraph{Unifying Classical Vector Calculus in $\mathbb{R}^3$.} For PDE
+    modelers and analysts, the exterior derivative unifies the gradient, curl,
+    and divergence into one operator at different degrees:
+    \[
+        \Omega^0(\mathbb{R}^3) \xrightarrow{d = \operatorname{grad}}
+        \Omega^1(\mathbb{R}^3) \xrightarrow{d = \operatorname{curl}}
+        \Omega^2(\mathbb{R}^3) \xrightarrow{d = \operatorname{div}}
+        \Omega^3(\mathbb{R}^3).
+    \]
+    Under this translation, the classical vector calculus identities
+    $\operatorname{curl}(\operatorname{grad} f) = 0$ and
+    $\operatorname{div}(\operatorname{curl} F) = 0$ are simply two instances
+    of the single identity $d^2 = 0$. This nilpotence is the algebraic
+    foundation that will lead directly to de Rham cohomology.

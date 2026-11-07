@@ -1,0 +1,100 @@
+\section{Tangent and Cotangent Spaces}
+    \label{sec:tangent-cotangent}
+
+    \subsection{Directional Derivatives as Derivations}
+    As recalled in Section~\ref{sec:preliminaries}, $C^\infty(X)$ denotes the
+    smooth real-valued functions on $X$. Let $p \in \mathbb{R}^n$ and let
+    $v_p$ be a vector based at $p$. For $f \in C^\infty(\mathbb{R}^n)$, its
+    directional derivative along $v_p$ is
+    \begin{equation}
+        \left.D_v f\right|_p = \left.\frac{d}{dt}\right|_{t=0} f(p+tv).
+    \end{equation}
+    It differentiates $f$ along the line through $p$ in direction $v$. For
+    $f,g \in C^\infty(\mathbb{R}^n)$, it satisfies the product rule at $p$:
+    \begin{equation}
+        \left.D_v(fg)\right|_p = f(p)\left.D_vg\right|_p
+        + g(p)\left.D_vf\right|_p.
+    \end{equation}
+
+    This suggests an algebraic definition that does not refer to a line or an
+    ambient vector.
+    \begin{definition}[Derivation at a point]
+        A linear map $w \colon C^\infty(\mathbb{R}^n) \to \mathbb{R}$ is a
+        \textbf{derivation at $p$} if it satisfies the product rule
+        \begin{equation}
+            w(fg) = f(p)w(g) + g(p)w(f)
+        \end{equation}
+        for every $f,g \in C^\infty(\mathbb{R}^n)$.
+    \end{definition}
+    Each vector $v_p$ defines a derivation by taking the directional
+    derivative. In fact, this correspondence is a linear isomorphism between
+    geometric tangent vectors based at $p$ and derivations at $p$ (see
+    \cite[Proposition~3.2, pp.~53--54]{lee2013smooth}). Thus, in
+    $\mathbb{R}^n$, derivations are another way to describe the geometric
+    tangent vectors we already know.
+
+    \subsection{Tangent Spaces on Manifolds}
+    Following the Euclidean setting, we now define tangent vectors on an
+    arbitrary smooth manifold without referring to ambient space. Let
+    $C^\infty(M)$ denote the set of smooth real-valued functions on $M$.
+
+    \begin{definition}[Derivation on a Manifold and %
+        Tangent Space \cite{lee2013smooth}]
+        Let $M$ be a smooth manifold and $p \in M$. A linear map $w \colon
+        C^\infty(M) \to \mathbb{R}$ is called a \textbf{derivation at $p$} if
+        it satisfies the product rule
+        \begin{equation}
+            w(fg) = f(p)w(g) + g(p)w(f)
+        \end{equation}
+        for all $f,g \in C^\infty(M)$.
+
+        The \textbf{tangent space} to $M$ at $p$, denoted $T_pM$, is the
+        vector space of all derivations of $C^\infty(M)$ at $p$:
+        \begin{equation}
+            T_pM = \left\{w \colon C^\infty(M) \to \mathbb{R} \;\middle|\;
+            w(fg) = f(p)w(g) + g(p)w(f)\right\}.
+        \end{equation}
+        An element $w \in T_pM$ is called a \textbf{tangent vector} at $p$.
+    \end{definition}
+
+    So a tangent vector is an intrinsic directional rate-of-change operator
+    acting on smooth functions on $M$. As expected, the tangent space has the
+    same dimension as the manifold: $\dim T_pM = n$ (see
+    \cite[Proposition~3.10, p.~57]{lee2013smooth}).
+
+    When a surface is embedded in $\mathbb{R}^3$, we can picture its tangent
+    space as the plane touching the surface at $p$. For the unit sphere, the
+    corresponding tangent vectors are the ambient vectors orthogonal to the
+    radius $p$.
+    \begin{figure}[htbp]
+        \centering
+        \input{../figures/sphere_tangent.tex}
+        \caption{%
+            The geometric tangent plane at $p$ on the sphere. The arrows $v$
+            and $w$ represent tangent vectors based at $p$.
+        }
+        \label{fig:sphere_tangent}
+    \end{figure}
+
+    \subsection{Cotangent Spaces}
+    The \textbf{cotangent space} is the linear dual of the tangent space:
+    \begin{equation}
+        T_p^*M = \operatorname{Hom}_{\mathbb{R}}(T_pM,\mathbb{R}).
+    \end{equation}
+
+    \begin{remark}
+        For those unfamiliar with the notation
+        $\operatorname{Hom}_{\mathbb{R}}(T_pM,\mathbb{R})$, it simply denotes
+        the vector space of all linear maps from $T_pM$ to $\mathbb{R}$ (the
+        dual space recalled in Section~\ref{sec:preliminaries}).
+    \end{remark}
+
+    A cotangent vector is a linear measurement of tangent directions. For any
+    smooth function $f \colon M \to \mathbb{R}$, its differential at $p$ is
+    the cotangent vector
+    \begin{equation}
+        df_p \colon T_pM \to \mathbb{R}, \qquad df_p(v)=v(f).
+    \end{equation}
+    In Euclidean space this is $df_p(v)=\nabla f(p)\cdot v$. The differential
+    is naturally a cotangent vector; identifying it with a gradient vector
+    uses an inner product.

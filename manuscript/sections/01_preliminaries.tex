@@ -1,0 +1,49 @@
+\section{Preliminary Knowledge Expected for the Audience}
+    \label{sec:preliminaries}
+
+    Before introducing smooth manifolds, we explicitly state the common ground
+    used throughout this talk. The audience brings diverse backgrounds across
+    pure mathematics, PDE modeling, optimization, and algebra. To keep the
+    talk accessible and inspiring rather than burdened by technical
+    prerequisites, we only rely on three familiar pillars from standard
+    undergraduate mathematics (for comprehensive foundational treatments, see
+    \cite{lee2013smooth, tu2011introduction}):
+
+    \begin{enumerate}
+        \item \textbf{Euclidean Space $\mathbb{R}^n$ as a Metric Space}:\\
+            We assume familiarity with $\mathbb{R}^n$ equipped with its
+            standard Euclidean distance, and what it means for a subset $U
+            \subseteq \mathbb{R}^n$ to be open or closed.
+
+        \item \textbf{Calculus of Several Variables}:\\
+            Given an open subset $U \subseteq \mathbb{R}^n$ and a map $f
+            \colon U \to \mathbb{R}^m$ (or a scalar function $f \colon U \to
+            \mathbb{R}$):
+        \begin{itemize}
+            \item When $f$ is continuous (preimages of open sets are open, or
+                $\lim_{x \to p} f(x) = f(p)$).
+            \item How to differentiate $f$: the total derivative / Jacobian
+                matrix represents the best linear approximation to $f$ at a
+                point.
+            \item \textbf{Directional derivative}:\\
+                For a scalar function $f \colon U \to \mathbb{R}$ and a vector
+                $v \in \mathbb{R}^n$, the directional derivative
+            \[
+                D_v f(p) = \left.\frac{d}{dt}\right|_{t=0} f(p + tv)
+                = \nabla f(p) \cdot v
+            \]
+                measures the rate of change of $f$ along $v$. This operation
+                directly bridges vectors with directional rates of change,
+                paving the way for tangent vectors as derivations.
+            \item When $f$ is smooth ($C^\infty$): partial derivatives of every
+                order exist and are continuous on $U$.
+        \end{itemize}
+            This calculus on open subsets of $\mathbb{R}^n$ is the primary
+            building block. A manifold is simply the geometric object that
+            allows us to transfer this calculus to spaces that are not flat
+            globally.
+
+        \item \textbf{Basic Linear Algebra}:\\
+            Vector spaces, linear maps, matrix representations, determinants,
+            and dual vector spaces (linear functionals).
+    \end{enumerate}
