@@ -157,24 +157,24 @@ This allows us to study global derivatives, PDEs on curved geometries, optimizat
 \label{sec:tangent-cotangent}
 
 \subsection{Directional Derivatives as Derivations}
-As recalled in Section~\ref{sec:preliminaries}, $C^\infty(X)$ denotes the smooth real-valued functions on $X$. Let $a \in \mathbb{R}^n$ and let $v_a$ be a vector based at $a$. For $f \in C^\infty(\mathbb{R}^n)$, its directional derivative along $v_a$ is
+As recalled in Section~\ref{sec:preliminaries}, $C^\infty(X)$ denotes the smooth real-valued functions on $X$. Let $p \in \mathbb{R}^n$ and let $v_p$ be a vector based at $p$. For $f \in C^\infty(\mathbb{R}^n)$, its directional derivative along $v_p$ is
 \begin{equation}
-\left.D_v f\right|_a = \left.\frac{d}{dt}\right|_{t=0} f(a+tv).
+\left.D_v f\right|_p = \left.\frac{d}{dt}\right|_{t=0} f(p+tv).
 \end{equation}
-It differentiates $f$ along the line through $a$ in direction $v$. For $f,g \in C^\infty(\mathbb{R}^n)$, it satisfies the product rule at $a$:
+It differentiates $f$ along the line through $p$ in direction $v$. For $f,g \in C^\infty(\mathbb{R}^n)$, it satisfies the product rule at $p$:
 \begin{equation}
-\left.D_v(fg)\right|_a = f(a)\left.D_vg\right|_a + g(a)\left.D_vf\right|_a.
+\left.D_v(fg)\right|_p = f(p)\left.D_vg\right|_p + g(p)\left.D_vf\right|_p.
 \end{equation}
 
 This suggests an algebraic definition that does not refer to a line or an ambient vector.
 \begin{definition}[Derivation at a point]
-A linear map $w \colon C^\infty(\mathbb{R}^n) \to \mathbb{R}$ is a \textbf{derivation at $a$} if it satisfies the product rule
+A linear map $w \colon C^\infty(\mathbb{R}^n) \to \mathbb{R}$ is a \textbf{derivation at $p$} if it satisfies the product rule
 \begin{equation}
-w(fg) = f(a)w(g) + g(a)w(f)
+w(fg) = f(p)w(g) + g(p)w(f)
 \end{equation}
 for every $f,g \in C^\infty(\mathbb{R}^n)$.
 \end{definition}
-Each vector $v_a$ defines a derivation by taking the directional derivative. In fact, this correspondence is a linear isomorphism between geometric tangent vectors based at $a$ and derivations at $a$ (see \cite[Proposition~3.2, pp.~53--54]{lee2013smooth}). Thus, in $\mathbb{R}^n$, derivations are another way to describe the geometric tangent vectors we already know.
+Each vector $v_p$ defines a derivation by taking the directional derivative. In fact, this correspondence is a linear isomorphism between geometric tangent vectors based at $p$ and derivations at $p$ (see \cite[Proposition~3.2, pp.~53--54]{lee2013smooth}). Thus, in $\mathbb{R}^n$, derivations are another way to describe the geometric tangent vectors we already know.
 
 \subsection{Tangent Spaces on Manifolds}
 Following the Euclidean setting, we now define tangent vectors on an arbitrary smooth manifold without referring to ambient space. Let $C^\infty(M)$ denote the set of smooth real-valued functions on $M$.
