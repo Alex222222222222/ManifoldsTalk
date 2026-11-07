@@ -6,16 +6,24 @@
   \draw[dashed, gray!55] (-3.15,0) arc (180:360:1.35 and 0.34);
   \draw[thick, gray!60] (-0.45,0) arc (0:180:1.35 and 0.34);
 
-  % A projected piece of the tangent plane through p
-  \filldraw[fill=orange!20, draw=orange!75!black, thick]
-    (-0.45,-1.0) -- (-0.45,1.0) -- (0.45,1.35) -- (0.45,-0.65) -- cycle;
-  \node[font=\footnotesize, text=orange!75!black] at (0.2,1.02) {$T_pS^2$};
+  % Tangent plane at p=(-0.45,0), properly centered at p so it extends to the left and right
+  % Directions in the plane: v_up = (0, 0.95), v_depth = (0.5, 0.25)
+  % Corners: p - v_depth - v_up, p - v_depth + v_up, p + v_depth + v_up, p + v_depth - v_up
+  \filldraw[fill=orange!25, fill opacity=0.55, draw=orange!80!black, thick]
+    (-0.95,-1.20) -- (-0.95,0.70) -- (0.05,1.20) -- (0.05,-0.70) -- cycle;
+  \node[font=\footnotesize, text=orange!85!black] at (0.05,1.38) {$T_pS^2$};
 
-  % Tangent point and two tangent vectors based at p
+  % Tangent point p
   \fill (-0.45,0) circle (2.5pt);
-  \node[left=2pt, font=\footnotesize] at (-0.45,0.05) {$p$};
-  \draw[->, very thick, red!75!black] (-0.45,0) -- (-0.45,0.68)
+  \node[above left=1pt, font=\footnotesize] at (-0.45,0.05) {$p$};
+
+  % Two tangent vectors based at p lying in the plane
+  % v points upward
+  \draw[->, very thick, red!85!black] (-0.45,0) -- (-0.45,0.70)
     node[right=2pt, font=\footnotesize] {$v$};
-  \draw[->, very thick, violet!75!black] (-0.45,0) -- (0.18,-0.35)
-    node[below right=1pt, font=\footnotesize] {$w$};
+  % w points into the front-left portion of the tangent plane (crossing to the LHS of p)
+  \draw[->, very thick, violet!85!black] (-0.45,0) -- (-0.82,-0.185)
+    node[below left=1pt, font=\footnotesize] {$w$};
+  % u points into the back-right portion of the tangent plane
+  \draw[->, thick, dashed, gray!70] (-0.45,0) -- (-0.12,0.165);
 \end{tikzpicture}
