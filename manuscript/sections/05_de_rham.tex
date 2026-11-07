@@ -87,6 +87,7 @@ The significance of de Rham cohomology is crystallized by a landmark result in
 differential topology (see \cite[Theorem~18.14, p.~484]{lee2013smooth}):
 
 \begin{theorem}[de Rham]
+    \label{thm:de_rham}
     For every smooth manifold $M$ and nonnegative integer $p$, there is a
     natural isomorphism of real vector spaces:
     \begin{equation}
@@ -150,10 +151,10 @@ which means that the first de Rham cohomology group vanishes:
     H^1_{\mathrm{dR}}(X)
     = \frac{Z^1_{\mathrm{dR}}(X)}{B^1_{\mathrm{dR}}(X)} = 0.
 \end{equation}
-
-If the space $X$ has a hole---such as $\mathbb{R}^3$ with the $z$-axis
-removed, corresponding physically to the magnetic field circling a steady
-electrical current---a curl-free field may fail to admit any global potential
-function $f$. In this light, de Rham cohomology is not an abstract algebraic
-luxury: it is the precise mathematical tool that quantifies the topological
-obstruction to solving physical potential equations globally.
+From algebraic topology (via the Universal Coefficient Theorem, the details of
+which we omit here), whenever a domain $X$ is simply connected, its first
+singular cohomology group vanishes: $H^1(X; \mathbb{R}) = 0$. By the de Rham
+theorem (Theorem~\ref{thm:de_rham}), this immediately implies that
+$H^1_{\mathrm{dR}}(X) = 0$. This topological vanishing is precisely what
+guarantees that every curl-free vector field on a simply connected domain
+admits a global scalar potential.
