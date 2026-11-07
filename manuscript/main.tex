@@ -367,6 +367,12 @@
         moves, its assigned cotangent vector changes smoothly too. We will
         not formalize this bundle-level notion here.
     \end{remark}
+    This global definition works over the whole sphere: at each point $p$,
+    there is one cotangent vector $\omega_p$, whether we describe $p$ using
+    the left-hemisphere patch, the right-hemisphere patch, or both on their
+    overlap. When we need actual numerical components, we choose a patch and
+    do the familiar local calculation there.
+
     For a smooth function $f \in C^\infty(M)$, its differential at $p$ is
     $df_p$, defined by $df_p(v)=v(f)$. Since $df_p \in T_p^*M$, these
     pointwise differentials define a map
