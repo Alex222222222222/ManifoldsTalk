@@ -60,8 +60,8 @@
             T \colon \underbrace{V \times \dots \times V}_{k \text{ copies}}
             \to \mathbb{R}
         \]
-        is \textbf{multilinear} (or a $k$-tensor) if it is linear in each
-        argument when all other $k-1$ arguments are held fixed.
+        is \textbf{multilinear} if it is linear in each argument when all other
+        $k-1$ arguments are held fixed.
 
         A multilinear map $T$ is \textbf{alternating} if swapping any two
         arguments reverses its sign:
@@ -82,7 +82,7 @@
         \wedge \colon \Omega^k(M) \times \Omega^l(M) \to \Omega^{k+l}(M).
     \end{equation}
     For two $1$-forms $\alpha$ and $\beta$, their wedge product at a point $p$
-    is the alternating $2$-tensor defined by
+    is the alternating $2$-form defined by
     \begin{equation}
         (\alpha \wedge \beta)_p(v,w)
         = \alpha_p(v)\beta_p(w) - \alpha_p(w)\beta_p(v),
@@ -110,9 +110,9 @@
             A \textbf{differential $k$-form} $\omega$ on $M$ is a smooth
             choice of an alternating multilinear map at each point. As Munkres
             defines (see \cite[p.~248]{munkres1991analysis}), if $\omega(p)$ is
-            an alternating $k$-tensor on the tangent space for each point $p$,
-            varying smoothly with $p$, then $\omega$ is called a differential
-            form of order $k$ (or simply a $k$-form).
+            an alternating multilinear map on the tangent space for each point
+            $p$, varying smoothly with $p$, then $\omega$ is called a
+            differential form of order $k$ (or simply a $k$-form).
     \end{enumerate}
 
     We denote the space of smooth $k$-forms on $M$ by $\Omega^k(M)$, with
