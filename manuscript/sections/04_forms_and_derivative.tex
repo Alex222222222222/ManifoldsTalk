@@ -155,26 +155,42 @@
     for the axiomatic formulation of differentiation on forms, where it
     governs how derivatives distribute across products.
 
-    \subsection{Why Are Forms Alternating? The Connection to Curl}
-    Why do differential forms demand this alternating property, rather than
-    permitting arbitrary multilinear maps? The fundamental reason is
-    geometric: forms are designed to measure \textbf{oriented, signed
-    geometric quantities} such as flux and circulation.
+    \subsection{Intuition for the Exterior Product and the Alternating Property}
+    To understand why differential forms and exterior products are defined
+    this way, we can appeal to geometric intuition built from standard
+    multivariable calculus:
+    \begin{itemize}
+        \item \textbf{$1$-forms measure change along vectors}:\\
+            A $1$-form measures how a function changes along a small tangent
+            vector $v$. This is the familiar directional derivative $df_p(v)
+            = v(f)$.
+        \item \textbf{$2$-forms measure change over parallelograms}:\\
+            A $2$-form measures how a quantity changes across a small
+            parallelogram spanned by two tangent vectors $v$ and $w$. Such a
+            measurement must be alternating simply because swapping the two
+            vectors reverses the orientation of the parallelogram, flipping
+            the sign of its signed area. This intuition is already familiar
+            from the cross product in $\mathbb{R}^3$, where $v \times w = -(w
+            \times v)$.
+        \item \textbf{The exterior product is the formula for area}:\\
+            The wedge product formula $(\alpha \wedge \beta)(v,w) =
+            \alpha(v)\beta(w) - \alpha(w)\beta(v)$ looks the way it does
+            simply because it computes the signed area of the parallelogram
+            determined by the two directional measurements.
+    \end{itemize}
 
-    Consider the classical curl from vector calculus in $\mathbb{R}^3$. For a
-    smooth vector field $F = (F_1, F_2, F_3)$, the component of curl
-    perpendicular to the $xy$-plane measures circulation around the $z$-axis:
+    This same antisymmetry appears directly in the classical curl from vector
+    calculus in $\mathbb{R}^3$. For a smooth vector field $F = (F_1, F_2,
+    F_3)$, the circulation density across an infinitesimal $xy$-parallelogram
+    is:
     \begin{equation}
         (\operatorname{curl} F)_z
         = \frac{\partial F_2}{\partial x} - \frac{\partial F_1}{\partial y}.
     \end{equation}
-    Notice the essential minus sign: swapping the order of the two directions
-    ($x$ and $y$) reverses the orientation of the loop, reversing the measured
-    circulation. When $F$ is represented as a $1$-form and differentiated, the
-    resulting $2$-form $\omega$ evaluates on two tangent vectors $v, w$ with
-    this exact antisymmetry: $\omega(v, w) = -\omega(w, v)$. The alternating
-    property is precisely the algebraic tool that keeps track of geometric
-    orientation.
+    Swapping the axes $x$ and $y$ reverses the orientation of the boundary
+    loop and flips the sign of the curl component. The alternating property of
+    differential forms is precisely the algebraic framework that captures this
+    geometric orientation across all dimensions.
 
     \subsection{The Exterior Derivative}
     The central operator of differential topology is the \textbf{exterior
