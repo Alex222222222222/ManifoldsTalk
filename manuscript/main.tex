@@ -375,57 +375,49 @@
     $1$-form, given in coordinates by $df = \sum_{i=1}^n \frac{\partial
     f}{\partial x^i} dx^i$.
 
-    \subsection{The Exterior Product}
-    To measure higher-dimensional geometric quantities---such as surface area,
-    magnetic flux, or volume---we need a way to multiply differential forms.
-    However, geometric area is naturally signed and oriented: swapping two
-    directions reverses the orientation.
-
-    The \textbf{exterior product} (or \textbf{wedge product}) $\wedge$
-    captures this antisymmetry. For any two $1$-forms $\alpha$ and $\beta$,
-    the product satisfies:
-    \begin{equation}
-        \alpha \wedge \beta = - \beta \wedge \alpha.
-    \end{equation}
-    In particular, setting $\beta = \alpha$ immediately forces $\alpha \wedge
-    \alpha = - \alpha \wedge \alpha$, so that $\alpha \wedge \alpha = 0$ for
-    any $1$-form $\alpha$. The wedge product is also bilinear and associative.
-    In local coordinates on a surface with coordinates $(x, y)$, the product
-    $dx \wedge dy$ represents the standard oriented area element, with $dy
-    \wedge dx = - dx \wedge dy$.
-
     \subsection{Higher Differential Forms}
     Generalizing $1$-forms, a \textbf{differential $k$-form} $\omega$ on $M$
     assigns to each point $p \in M$ an alternating multilinear map that takes
-    $k$ tangent vectors $(v_1, \dots, v_k)$ and returns a real number. In
-    local coordinates $(x^1, \dots, x^n)$, every $k$-form is expressed as
-    \begin{equation}
-        \omega = \sum_{1 \le i_1 < \dots < i_k \le n} a_{i_1 \dots i_k}(x) \,
-        dx^{i_1} \wedge \dots \wedge dx^{i_k}.
-    \end{equation}
-    We denote the space of smooth $k$-forms on $M$ by $\Omega^k(M)$, setting
+    $k$ tangent vectors $(v_1, \dots, v_k)$ and returns a real number. We
+    denote the space of smooth $k$-forms on $M$ by $\Omega^k(M)$, setting
     $\Omega^0(M) = C^\infty(M)$ (smooth functions).
 
-    A key dimensional property follows immediately from antisymmetry: on an
-    $n$-dimensional manifold, any wedge product of more than $n$ coordinate
-    differentials must contain a repeated differential $dx^i$, and therefore
-    vanishes. Hence, $\Omega^k(M) = \{0\}$ for all $k > n$. Top-degree forms
-    in $\Omega^n(M)$ represent oriented volume forms, which are the natural
-    objects to integrate over $n$-dimensional manifolds.
+    Because the maps are alternating, a $k$-form on an $n$-dimensional
+    manifold must vanish when $k>n$. Top-degree forms in $\Omega^n(M)$
+    represent oriented volume forms, the natural objects to integrate over an
+    $n$-dimensional manifold.
 
-    Higher forms also have direct physical counterparts. In electromagnetism,
-    the magnetic field can be encoded as a $2$-form
-    \[
-        B = B_1 \, dx^2 \wedge dx^3
-        + B_2 \, dx^3 \wedge dx^1
-        + B_3 \, dx^1 \wedge dx^2,
-    \]
-    and the electric field as a $1$-form; together they form a single field
-    strength $2$-form whose equations of motion are Maxwell's equations. In
-    fluid mechanics, the vorticity is a $2$-form obtained by differentiating
-    the velocity $1$-form. In each case, differentiating a physical field
-    raises its form degree by one and extracts an object that is independent
-    of the chosen coordinates.
+    \subsection{The Exterior Product}
+    The \textbf{exterior product} (or \textbf{wedge product}) combines forms
+    and adds their degrees:
+    \begin{equation}
+        \wedge \colon \Omega^k(M) \times \Omega^l(M)
+        \to \Omega^{k+l}(M).
+    \end{equation}
+    For two $1$-forms $\alpha$ and $\beta$, their product is the $2$-form
+    defined by
+    \begin{equation}
+        (\alpha \wedge \beta)_p(v,w)
+        = \alpha_p(v)\beta_p(w) - \alpha_p(w)\beta_p(v),
+        \qquad v,w \in T_pM.
+    \end{equation}
+    This alternating formula records the signed orientation of the area
+    spanned by $v$ and $w$. In particular,
+    $\alpha \wedge \beta = -\beta \wedge \alpha$, so
+    $\alpha \wedge \alpha = 0$. The same alternating construction
+    extends the product to forms of higher degree; it is bilinear and
+    associative.
+
+    In local coordinates $(x^1, \dots, x^n)$, a $k$-form can be written as
+    \begin{equation}
+        \omega = \sum_{1 \le i_1 < \dots < i_k \le n}
+        a_{i_1 \dots i_k}(x) \,
+        dx^{i_1} \wedge \dots \wedge dx^{i_k}.
+    \end{equation}
+    Since repeated coordinate differentials wedge to zero,
+    $\Omega^k(M)=\{0\}$ for $k>n$. On a surface, $dx \wedge dy$
+    represents the standard oriented area element, and
+    $dy \wedge dx = -dx \wedge dy$.
 
     \subsection{The Exterior Derivative}
     The central operator of differential topology is the \textbf{exterior
@@ -456,6 +448,12 @@
     In local coordinates, the action of $d$ is computed directly by
     differentiating coefficients: $d\left(\sum_I a_I dx^I\right) = \sum_I da_I
     \wedge dx^I$.
+
+    For a physical example, in oriented Euclidean $\mathbb{R}^3$, a vector
+    potential is represented by a $1$-form $A$. Its exterior derivative $dA$
+    is a $2$-form representing magnetic flux; in vector calculus, this is the
+    curl of the vector potential. Thus differentiating a $1$-form field
+    produces a $2$-form field.
 
     \paragraph{Unifying Classical Vector Calculus in $\mathbb{R}^3$.} For PDE
     modelers and analysts, the exterior derivative unifies the gradient, curl,
