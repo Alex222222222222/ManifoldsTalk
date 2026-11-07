@@ -1,0 +1,163 @@
+\section{de Rham Cohomology: Bridging Geometry, Topology, and Physics}
+\label{sec:de_rham}
+
+All the geometric machinery developed in previous sections---smooth manifolds,
+tangent and cotangent spaces, differential forms, and the exterior derivative
+---serves as the foundation for a profound topological invariant: \textbf{de
+Rham cohomology}.
+
+\subsection{The de Rham Complex and Cohomology Groups}
+On an $n$-dimensional smooth manifold $M$, the exterior derivative $d$
+produces a sequence of real vector spaces and linear maps, known as the
+\textbf{de Rham complex}:
+\begin{equation}
+    0 \longrightarrow \Omega^0(M) \xrightarrow{\,d\,} \Omega^1(M)
+    \xrightarrow{\,d\,} \Omega^2(M) \xrightarrow{\,d\,} \dots
+    \xrightarrow{\,d\,} \Omega^n(M) \longrightarrow 0.
+\end{equation}
+At each degree $k$, we distinguish two fundamental subspaces of differential
+forms:
+\begin{itemize}
+    \item \textbf{Closed $k$-forms}:\\
+        Forms annihilated by the exterior derivative, forming the kernel
+        subspace:
+        \[
+            Z^k_{\mathrm{dR}}(M)
+            = \ker\left(d \colon \Omega^k(M) \to \Omega^{k+1}(M)\right)
+            = \left\{ \omega \in \Omega^k(M) \;\middle|\; d\omega = 0 \right\}.
+        \]
+    \item \textbf{Exact $k$-forms}:\\
+        Forms that are the exterior derivative of a lower-degree form, forming
+        the image subspace:
+        \[
+            B^k_{\mathrm{dR}}(M)
+            = \operatorname{im}\left(d \colon \Omega^{k-1}(M)
+            \to \Omega^k(M)\right)
+            = \left\{ d\eta \;\middle|\; \eta \in \Omega^{k-1}(M) \right\}.
+        \]
+\end{itemize}
+
+The nilpotence property $d^2 = d \circ d = 0$ guarantees that every exact form
+is closed: if $\omega = d\eta$, then $d\omega = d(d\eta) = 0$. Consequently,
+the image subspace is always contained in the kernel subspace:
+\begin{equation}
+    B^k_{\mathrm{dR}}(M) \subseteq Z^k_{\mathrm{dR}}(M).
+\end{equation}
+Because the exterior derivative $d$ is $\mathbb{R}$-linear, both
+$Z^k_{\mathrm{dR}}(M)$ and $B^k_{\mathrm{dR}}(M)$ are linear subspaces of
+$\Omega^k(M)$. We can therefore take their quotient vector space.
+
+\begin{definition}[de Rham Cohomology Groups]
+    For each $k \ge 0$, the \textbf{$k$-th de Rham cohomology group} of $M$ is
+    the quotient vector space
+    \begin{equation}
+        H^k_{\mathrm{dR}}(M)
+        = \frac{Z^k_{\mathrm{dR}}(M)}{B^k_{\mathrm{dR}}(M)}
+        = \frac{\ker\left(d \colon \Omega^k(M) \to \Omega^{k+1}(M)\right)}%
+        {\operatorname{im}\left(d \colon \Omega^{k-1}(M)
+        \to \Omega^k(M)\right)}.
+    \end{equation}
+    An element $[\omega] \in H^k_{\mathrm{dR}}(M)$ is a cohomology class
+    representing a closed form $\omega$ modulo exact forms: $[\omega] =
+    [\omega + d\eta]$.
+\end{definition}
+
+\subsection{Cohomology of Spheres}
+While we do not have time in this talk to perform the full calculation, the de
+Rham cohomology groups of the $n$-dimensional sphere $S^n$ are completely
+known and illustrate the topological meaning of the invariants:
+\begin{equation}
+    H^k_{\mathrm{dR}}(S^n) =
+    \begin{cases}
+        \mathbb{R}, & k = 0 \text{ or } k = n, \\[4pt]
+        0, & 0 < k < n.
+    \end{cases}
+\end{equation}
+For our running example of the 2-sphere $S^2$, the cohomology vector spaces
+are:
+\begin{equation}
+    H^0_{\mathrm{dR}}(S^2) \cong \mathbb{R}, \qquad
+    H^1_{\mathrm{dR}}(S^2) = 0, \qquad
+    H^2_{\mathrm{dR}}(S^2) \cong \mathbb{R}.
+\end{equation}
+Each degree detects a distinct topological feature: $H^0(S^2) \cong
+\mathbb{R}$ reflects that the sphere has a single connected component;
+$H^1(S^2) = 0$ indicates that there are no one-dimensional holes (every closed
+loop contracts to a point); and $H^2(S^2) \cong \mathbb{R}$ captures the two-
+dimensional void enclosed by the hollow sphere.
+
+\subsection{The de Rham Theorem: A Bridge Between Geometry and Topology}
+The significance of de Rham cohomology is crystallized by a landmark result in
+differential topology (see \cite[Theorem~18.14, p.~484]{lee2013smooth}):
+
+\begin{theorem}[de Rham]
+    For every smooth manifold $M$ and nonnegative integer $p$, the de Rham
+    homomorphism
+    \begin{equation}
+        I \colon H^p_{\mathrm{dR}}(M) \xrightarrow{\;\cong\;} H^p(M; \mathbb{R})
+    \end{equation}
+    is an isomorphism of real vector spaces, where $H^p(M; \mathbb{R})$
+    denotes the singular cohomology with real coefficients.
+\end{theorem}
+
+This theorem carries deep consequences for mathematics across disciplines:
+\begin{itemize}
+    \item \textbf{Bridging analysis and algebraic topology}:\\
+        Singular cohomology $H^p(M; \mathbb{R})$ is defined purely
+        topologically using abstract chains and simplices, whereas de Rham
+        cohomology is defined analytically using smooth differential forms and
+        the exterior derivative. The de Rham theorem establishes that these
+        two completely different worlds compute the exact same topological
+        invariants.
+    \item \textbf{A powerful computational tool}:\\
+        In algebraic topology, ordinary cohomology rings are notoriously
+        difficult to compute directly, especially their multiplicative ring
+        structure (the cup product). Although the exterior product may
+        initially appear abstract, computing wedge products of differential
+        forms is vastly simpler and more concrete than working with
+        combinatorial singular cochains. The only trade-off is that real
+        vector spaces cannot detect torsion (finite-order cyclic subgroups),
+        but for many topological and physical applications, the real
+        cohomology ring is precisely what is needed.
+\end{itemize}
+
+\subsection{Physical Significance: Conservative Vector Fields and Topology}
+Beyond pure topology, de Rham cohomology plays a decisive role in physics,
+explaining theorems that frequently appear mysterious in standard
+multivariable calculus courses.
+
+Recall the classical conservative vector field theorem: \emph{on a simply
+connected domain $X \subseteq \mathbb{R}^3$, a smooth vector field $F$
+satisfies $\operatorname{curl} F = 0$ if and only if $F = \nabla f$ for some
+scalar potential $f$}.
+
+\begin{remark}
+    If you are unfamiliar with the formal topological definition of ``simply
+    connected'', you may simply think of a general well-behaved region in
+    $\mathbb{R}^3$ without holes or missing axes (for example, all of
+    $\mathbb{R}^3$ or a solid ball).
+\end{remark}
+
+Under the dictionary between vector calculus and differential forms:
+\begin{enumerate}
+    \item $\operatorname{curl} F = 0$ translates to $d\omega_F = 0$, meaning
+        that the associated $1$-form $\omega_F$ is \textbf{closed}
+        ($\omega_F \in Z^1_{\mathrm{dR}}(X)$).
+    \item $F = \nabla f$ translates to $\omega_F = df$, meaning that the
+        $1$-form is \textbf{exact} ($\omega_F \in B^1_{\mathrm{dR}}(X)$).
+\end{enumerate}
+
+Thus, the physics theorem that every curl-free field is conservative on $X$ is
+precisely the mathematical statement that every closed $1$-form is exact,
+which means that the first de Rham cohomology group vanishes:
+\begin{equation}
+    H^1_{\mathrm{dR}}(X)
+    = \frac{Z^1_{\mathrm{dR}}(X)}{B^1_{\mathrm{dR}}(X)} = 0.
+\end{equation}
+
+If the space $X$ has a hole---such as $\mathbb{R}^3$ with the $z$-axis
+removed, corresponding physically to the magnetic field circling a steady
+electrical current---a curl-free field may fail to admit any global potential
+function $f$. In this light, de Rham cohomology is not an abstract algebraic
+luxury: it is the precise mathematical tool that quantifies the topological
+obstruction to solving physical potential equations globally.
