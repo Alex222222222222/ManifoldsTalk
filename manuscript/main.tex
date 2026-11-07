@@ -361,19 +361,18 @@
     \begin{equation}
         \omega \colon M \to T^*M, \qquad \omega(p) = (p, \omega_p)
     \end{equation}
-    where $\omega_p \in T_p^*M$, varying smoothly with $p$. Given any tangent
-    vector $v \in T_pM$, evaluating $\omega_p(v) \in \mathbb{R}$ yields a
-    number that depends smoothly on $p$.
+    where $\omega_p \in T_p^*M$ for each $p \in M$.
 
     In a local coordinate chart $(x^1, \dots, x^n)$, the coordinate
     differentials $dx^1, \dots, dx^n$ form a basis for $T_p^*M$ at each point.
     Consequently, any $1$-form $\omega$ can be written uniquely in local
     coordinates as
     \begin{equation}
-        \omega = \sum_{i=1}^n a_i(x) \, dx^i,
+        \omega = \sum_{i=1}^n a_i(x) \, dx^i.
     \end{equation}
-    where each coefficient function $a_i \colon U \to \mathbb{R}$ is smooth.
-    For example, the differential of a function $f \in C^\infty(M)$ is a
+    Smoothness of $\omega$ simply means that each coefficient function
+    $a_i \colon U \to \mathbb{R}$ is a smooth ($C^\infty$) function. For
+    example, the differential of a function $f \in C^\infty(M)$ is a
     $1$-form, given in coordinates by $df = \sum_{i=1}^n \frac{\partial
     f}{\partial x^i} dx^i$.
 
