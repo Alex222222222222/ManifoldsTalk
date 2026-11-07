@@ -97,54 +97,53 @@ An algebraic variety is not globally affine; it is constructed by gluing togethe
 \subsection{Constructing \texorpdfstring{$S^2$}{S²} by Gluing Two Disks}
 \label{sec:gluing_s2}
 
-Instead of working through formal coordinate formulas, we can understand how $S^2$ is constructed from flat Euclidean spaces through an intuitive physical deformation in three steps:
-
+Here is the picture to keep in mind:
 \begin{enumerate}
-    \item \textbf{Cut Two Flat Disks}: Start with two parallel planes (two copies of $\mathbb{R}^2$), one on the left and one on the right. Cut an open disk out of each plane: $D_1$ from the left plane and $D_2$ from the right plane.
-    \item \textbf{Deform into Hemispheres}: Bulge each flat disk outward into an open half-sphere (a left bowl and a right bowl). We keep them slightly larger than exact half-spheres so their boundaries extend past the equator.
-    \item \textbf{Glue with Overlap}: Bring the two curved bowls together and glue them along a thin equatorial strip where they overlap.
+    \item Cut one disk from each of two parallel planes.
+    \item Bend the disks into two bowls.
+    \item Bring the bowls together so they overlap along a narrow strip.
 \end{enumerate}
 
 \begin{figure}[htbp]
 \centering
 \input{../figures/sphere_gluing.tex}
-\caption{Constructing $S^2$ by gluing two disks: (1) cut two flat disks from parallel planes, (2) deform them into open hemispherical bowls, and (3) glue them together along an overlapping equatorial collar.}
+\caption{A three-step picture of gluing two disks to form $S^2$. The green rims in (a) mark the regions that will overlap after bending.}
 \label{fig:sphere_gluing}
 \end{figure}
 
-Because each patch is an open disk in $\mathbb{R}^2$, calculus locally on each patch is just flat calculus in $\mathbb{R}^2$. The smooth transition across the overlapping strip ensures that derivatives and physical fields pass from one hemisphere to the other without seams.
-
-\paragraph{Note on Animated Visualization.} Standard PDF readers do not render animated GIFs. In this written manuscript, the process is presented as the three-stage storyboard in Figure~\ref{fig:sphere_gluing}. For live presentation slides and digital display, an animated version demonstrating this continuous deformation and gluing is generated as an animated GIF at \texttt{figures/gluing\_s2.gif}.
-
 \subsection{The Precise Definition of a Smooth Manifold}
-We now state the formal definition, following standard references such as Lee \cite[Chapter~1]{lee2013smooth} and Tu \cite[Chapter~2]{tu2011introduction}.
+We follow Lee's presentation in Chapter~1, Section ``Smooth Structures,'' especially pages 11--13 \cite[Chapter~1, ``Smooth Structures,'' pp.~11--13]{lee2013smooth}; see also Tu's treatment in Chapter~2 \cite[Chapter~2]{tu2011introduction}.
 
-\begin{definition}[Topological Manifold \cite{lee2013smooth, tu2011introduction}]
-A topological space $M$ is a \textbf{topological manifold of dimension $n$} if:
-\begin{enumerate}
-    \item $M$ is \textbf{Hausdorff}: for every pair of distinct points $p, q \in M$, there exist disjoint open sets $U, V$ with $p \in U$ and $q \in V$.
-    \item $M$ is \textbf{second-countable}: $M$ has a countable basis for its topology.
-    \item $M$ is \textbf{locally Euclidean of dimension $n$}: every point $p \in M$ has an open neighborhood $U$ that is homeomorphic to an open subset of $\mathbb{R}^n$.
-\end{enumerate}
+\begin{definition}[Smooth Manifold \cite{lee2013smooth, tu2011introduction}]
+Let $M$ be a Hausdorff, second-countable topological space. These are technical assumptions that we will not discuss further; if you are unfamiliar with topology, you may think of $M$ as a subspace of some $\mathbb{R}^m$.
+
+A \textbf{coordinate chart} on $M$ is a pair $(U, \phi)$, where $U \subseteq M$ is open and $\phi \colon U \to \phi(U) \subseteq \mathbb{R}^n$ is a homeomorphism (a continuous bijection with a continuous inverse) onto an open subset of $\mathbb{R}^n$.
+
+Two charts $(U, \phi)$ and $(V, \psi)$ are \textbf{smoothly compatible} if either $U \cap V = \emptyset$, or the transition map
+\begin{equation}
+\psi \circ \phi^{-1} \colon \phi(U \cap V) \to \psi(U \cap V)
+\end{equation}
+is a $C^\infty$ diffeomorphism between open subsets of $\mathbb{R}^n$.
+
+A \textbf{smooth atlas} $\mathcal{A}$ on $M$ is a collection of smoothly compatible charts $\{(U_\alpha, \phi_\alpha)\}_{\alpha \in I}$ whose domains cover $M$:
+\begin{equation}
+\bigcup_{\alpha \in I} U_\alpha = M.
+\end{equation}
+A \textbf{smooth $n$-manifold} is a Hausdorff, second-countable topological space $M$ together with a smooth atlas of dimension $n$.
 \end{definition}
 
-\begin{definition}[Coordinate Chart and Smooth Atlas \cite{lee2013smooth, tu2011introduction}]
-Let $M$ be a topological $n$-manifold.
-\begin{enumerate}
-    \item A \textbf{coordinate chart} on $M$ is a pair $(U, \phi)$, where $U \subseteq M$ is an open set and $\phi \colon U \to \phi(U) \subseteq \mathbb{R}^n$ is a homeomorphism onto an open subset of $\mathbb{R}^n$.
-    \item Two charts $(U, \phi)$ and $(V, \psi)$ are \textbf{smoothly compatible} if either $U \cap V = \emptyset$, or the transition map
-    \begin{equation}
-    \psi \circ \phi^{-1} \colon \phi(U \cap V) \to \psi(U \cap V)
-    \end{equation}
-    is a $C^\infty$ diffeomorphism between open subsets of $\mathbb{R}^n$ (in the sense of multivariable calculus from Section~\ref{sec:preliminaries}).
-    \item A \textbf{smooth atlas} $\mathcal{A}$ on $M$ is a collection of smoothly compatible charts $\{(U_\alpha, \phi_\alpha)\}_{\alpha \in I}$ whose domains cover $M$:
-    \begin{equation}
-    \bigcup_{\alpha \in I} U_\alpha = M.
-    \end{equation}
-    \item A smooth atlas $\mathcal{A}$ is \textbf{maximal} if it is not contained in any strictly larger smooth atlas. A maximal smooth atlas is called a \textbf{smooth structure} on $M$.
-\end{enumerate}
-A \textbf{smooth manifold} is a topological manifold $M$ equipped with a smooth structure.
-\end{definition}
+\subsection{Checking the Gluing Example Against the Definition}
+
+Return to Figure~\ref{fig:sphere_gluing}. It shows the two bowl-shaped patches and the band where they overlap. In Figure~\ref{fig:sphere_transition}, the same overlap is drawn on both patches: the green strip on the left patch corresponds to the green strip on the right. The arrows show points in one strip mapping to corresponding points in the other. This is the transition function, and it describes how we glue the two patches together.
+
+The condition in the definition is that this transition be smooth.
+
+\begin{figure}[htbp]
+\centering
+\input{../figures/sphere_transition.tex}
+\caption{Two hemispherical patches, with matching green overlap strips. Arrows show corresponding points being mapped from the left strip to the right.}
+\label{fig:sphere_transition}
+\end{figure}
 
 \subsection{The Benefit: Uniting Local Calculus with Global Coherence}
 Why is this definition so effective?
@@ -153,6 +152,67 @@ Why is this definition so effective?
     \item \textbf{Globally}: Because the transition maps $\psi \circ \phi^{-1}$ are smooth diffeomorphisms, the multivariate chain rule guarantees that all calculus operations (smoothness of functions, directional derivatives, vector fields, and differential forms) are coordinate-independent.
 \end{itemize}
 This allows us to study global derivatives, PDEs on curved geometries, optimization on manifolds, and global topological invariants (such as de Rham cohomology) rigorously.
+
+\section{Tangent and Cotangent Spaces}
+\label{sec:tangent-cotangent}
+
+\subsection{Directional Derivatives as Derivations}
+As recalled in Section~\ref{sec:preliminaries}, $C^\infty(X)$ denotes the smooth real-valued functions on $X$. Let $a \in \mathbb{R}^n$ and let $v_a$ be a vector based at $a$. For $f \in C^\infty(\mathbb{R}^n)$, its directional derivative along $v_a$ is
+\begin{equation}
+\left.D_v f\right|_a = \left.\frac{d}{dt}\right|_{t=0} f(a+tv).
+\end{equation}
+It differentiates $f$ along the line through $a$ in direction $v$. For $f,g \in C^\infty(\mathbb{R}^n)$, it satisfies the product rule at $a$:
+\begin{equation}
+\left.D_v(fg)\right|_a = f(a)\left.D_vg\right|_a + g(a)\left.D_vf\right|_a.
+\end{equation}
+
+This suggests an algebraic definition that does not refer to a line or an ambient vector.
+\begin{definition}[Derivation at a point]
+A linear map $w \colon C^\infty(\mathbb{R}^n) \to \mathbb{R}$ is a \textbf{derivation at $a$} if it satisfies the product rule
+\begin{equation}
+w(fg) = f(a)w(g) + g(a)w(f)
+\end{equation}
+for every $f,g \in C^\infty(\mathbb{R}^n)$.
+\end{definition}
+Each vector $v_a$ defines a derivation by taking the directional derivative. Lee's Proposition~3.2 shows that this assignment is a linear isomorphism from geometric tangent vectors based at $a$ to derivations at $a$ (pp.~53--54) \cite{lee2013smooth}. Thus, in $\mathbb{R}^n$, derivations are another way to describe the geometric tangent vectors we already know.
+
+\subsection{Tangent Spaces on Manifolds}
+Following the Euclidean setting, we now define tangent vectors on an arbitrary smooth manifold without referring to ambient space. Let $C^\infty(M)$ denote the set of smooth real-valued functions on $M$.
+
+\begin{definition}[Derivation on a Manifold and Tangent Space \cite{lee2013smooth}]
+Let $M$ be a smooth manifold and $p \in M$. A linear map $w \colon C^\infty(M) \to \mathbb{R}$ is called a \textbf{derivation at $p$} if it satisfies the product rule
+\begin{equation}
+w(fg) = f(p)w(g) + g(p)w(f)
+\end{equation}
+for all $f,g \in C^\infty(M)$.
+
+The \textbf{tangent space} to $M$ at $p$, denoted $T_pM$, is the vector space of all derivations of $C^\infty(M)$ at $p$:
+\begin{equation}
+T_pM = \left\{w \colon C^\infty(M) \to \mathbb{R} \;\middle|\; w \text{ is linear and } w(fg)=f(p)w(g)+g(p)w(f)\right\}.
+\end{equation}
+An element $w \in T_pM$ is called a \textbf{tangent vector} at $p$.
+\end{definition}
+
+So a tangent vector is an intrinsic directional rate-of-change operator acting on smooth functions on $M$. Lee proves that $\dim T_pM = n$ in Proposition~3.10 \cite[p.~57]{lee2013smooth}.
+
+When a surface is embedded in $\mathbb{R}^3$, we can picture its tangent space as the plane touching the surface at $p$. For the unit sphere, the corresponding tangent vectors are the ambient vectors orthogonal to the radius $p$.
+\begin{figure}[htbp]
+\centering
+\input{../figures/sphere_tangent.tex}
+\caption{The geometric tangent plane at $p$ on the sphere. The arrows $v$ and $w$ represent tangent vectors based at $p$.}
+\label{fig:sphere_tangent}
+\end{figure}
+
+\subsection{Cotangent Spaces}
+The \textbf{cotangent space} is the linear dual of the tangent space:
+\begin{equation}
+T_p^*M = \operatorname{Hom}_{\mathbb{R}}(T_pM,\mathbb{R}).
+\end{equation}
+A cotangent vector is a linear measurement of tangent directions. For any smooth function $f \colon M \to \mathbb{R}$, its differential at $p$ is the cotangent vector
+\begin{equation}
+df_p \colon T_pM \to \mathbb{R}, \qquad df_p(v)=v(f).
+\end{equation}
+In Euclidean space this is $df_p(v)=\nabla f(p)\cdot v$. The differential is naturally a covector; identifying it with a gradient vector uses an inner product. Smoothly varying cotangent vectors are differential $1$-forms, which will lead us toward de Rham cohomology.
 
 \section*{Acknowledgments}
 AI was used in typesetting and structuring this manuscript and the accompanying presentation slides. Every part of the mathematics is written by hand.

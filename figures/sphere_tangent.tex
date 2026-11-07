@@ -1,0 +1,21 @@
+\begin{tikzpicture}[>=stealth, scale=1.35]
+  % Unit sphere centered at (-1.8,0)
+  \draw[thick, fill=blue!8] (-1.8,0) circle (1.35);
+  \draw[dashed, gray!55] (-1.8,1.35) arc (90:270:0.38 and 1.35);
+  \draw[thick, gray!60] (-1.8,1.35) arc (90:-90:0.38 and 1.35);
+  \draw[dashed, gray!55] (-3.15,0) arc (180:360:1.35 and 0.34);
+  \draw[thick, gray!60] (-0.45,0) arc (0:180:1.35 and 0.34);
+
+  % A projected piece of the tangent plane through p
+  \filldraw[fill=orange!20, draw=orange!75!black, thick]
+    (-0.45,-1.0) -- (-0.45,1.0) -- (0.45,1.35) -- (0.45,-0.65) -- cycle;
+  \node[font=\footnotesize, text=orange!75!black] at (0.2,1.02) {$T_pS^2$};
+
+  % Tangent point and two tangent vectors based at p
+  \fill (-0.45,0) circle (2.5pt);
+  \node[left=2pt, font=\footnotesize] at (-0.45,0.05) {$p$};
+  \draw[->, very thick, red!75!black] (-0.45,0) -- (-0.45,0.68)
+    node[right=2pt, font=\footnotesize] {$v$};
+  \draw[->, very thick, violet!75!black] (-0.45,0) -- (0.18,-0.35)
+    node[below right=1pt, font=\footnotesize] {$w$};
+\end{tikzpicture}
