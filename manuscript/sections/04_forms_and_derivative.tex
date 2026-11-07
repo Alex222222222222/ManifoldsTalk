@@ -55,6 +55,22 @@
     By a common abuse of notation, this map itself is called the differential
     $df$, or a differential $1$-form.
 
+    \paragraph{Vector Fields and $1$-Forms in Euclidean Space.}
+    In Euclidean space $\mathbb{R}^n$, physics and calculus usually work with
+    vector fields $F$, which assign a tangent vector $F(p)$ to each point $p$.
+    Using the standard Euclidean dot product, any vector field $F$ naturally
+    corresponds to an associated differential $1$-form $\omega_F$: at each
+    point $p$, it acts on a tangent vector $v \in T_p\mathbb{R}^n$ by taking
+    the dot product
+    \begin{equation}
+        \omega_F(v) = F(p) \cdot v.
+    \end{equation}
+    Through this inner product pairing, a gradient vector field $\nabla f$
+    corresponds precisely to the differential $1$-form $df$, because
+    $\omega_{\nabla f}(v) = \nabla f(p) \cdot v = df_p(v)$. This
+    correspondence provides the bridge between vector fields and differential
+    $1$-forms.
+
     \subsection{Multilinear and Alternating Maps}
     To move from $1$-forms to higher differential forms, we recall the
     algebraic concept of multilinear and alternating maps on a vector space
