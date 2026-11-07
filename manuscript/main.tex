@@ -361,19 +361,11 @@
     \begin{equation}
         \omega \colon M \to T^*M, \qquad \omega(p) = (p, \omega_p)
     \end{equation}
-    where $\omega_p \in T_p^*M$ for each $p \in M$.
-
-    In local coordinates $(x^1, \dots, x^n)$, the coordinate differentials
-    $dx^1, \dots, dx^n$ form a basis for $T_p^*M$ at each point. Consequently,
-    any $1$-form $\omega$ can be written uniquely as
-    \begin{equation}
-        \omega = \sum_{i=1}^n a_i(x) \, dx^i.
-    \end{equation}
-    Smoothness of $\omega$ simply means that each coefficient function
-    $a_i \colon U \to \mathbb{R}$ is a smooth ($C^\infty$) function. For
-    example, the differential of a function $f \in C^\infty(M)$ is a
-    $1$-form, given in coordinates by $df = \sum_{i=1}^n \frac{\partial
-    f}{\partial x^i} dx^i$.
+    where $\omega_p \in T_p^*M$ for each $p \in M$. At a point $p$, the
+    cotangent vector $\omega_p$ acts on a tangent vector $v \in T_pM$ and
+    returns the real number $\omega_p(v)$. For a smooth function
+    $f \in C^\infty(M)$, its differential is the basic example:
+    $df_p(v)=v(f)$.
 
     \subsection{Higher Differential Forms}
     Generalizing $1$-forms, a \textbf{differential $k$-form} $\omega$ on $M$
@@ -406,23 +398,12 @@
     $\alpha \wedge \beta = -\beta \wedge \alpha$, so
     $\alpha \wedge \alpha = 0$. The same alternating construction
     extends the product to forms of higher degree; it is bilinear and
-    associative.
-
-    In local coordinates $(x^1, \dots, x^n)$, a $k$-form can be written as
-    \begin{equation}
-        \omega = \sum_{1 \le i_1 < \dots < i_k \le n}
-        a_{i_1 \dots i_k}(x) \,
-        dx^{i_1} \wedge \dots \wedge dx^{i_k}.
-    \end{equation}
-    Since repeated coordinate differentials wedge to zero,
-    $\Omega^k(M)=\{0\}$ for $k>n$. On a surface, $dx \wedge dy$
-    represents the standard oriented area element, and
-    $dy \wedge dx = -dx \wedge dy$.
+    associative. On a surface, the wedge product of two cotangent vectors
+    measures signed area when evaluated on a pair of tangent directions.
 
     \subsection{The Exterior Derivative}
     The central operator of differential topology is the \textbf{exterior
-    derivative} $d$. It is a single, coordinate-independent differential
-    operator that increases the degree of forms by $1$:
+    derivative} $d$. It takes each $k$-form to a $(k+1)$-form:
     \begin{equation}
         d \colon \Omega^k(M) \to \Omega^{k+1}(M).
     \end{equation}
@@ -444,10 +425,6 @@
                 d^2 = d \circ d = 0.
             \]
     \end{enumerate}
-
-    In local coordinates, the action of $d$ is computed directly by
-    differentiating coefficients: $d\left(\sum_I a_I dx^I\right) = \sum_I da_I
-    \wedge dx^I$.
 
     For a physical example, in oriented Euclidean $\mathbb{R}^3$, a vector
     potential is represented by a $1$-form $A$. Its exterior derivative $dA$
