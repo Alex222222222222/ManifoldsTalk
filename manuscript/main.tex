@@ -356,15 +356,20 @@
 
     \subsection{Differential 1-Forms}
     With the cotangent bundle in hand, a \textbf{differential $1$-form}
-    $\omega$ on $M$ is a smooth choice of a cotangent vector at each point.
-    Concretely, $\omega$ is a map
+    $\omega$ on $M$ assigns a cotangent vector $\omega_p \in T_p^*M$ to
+    each point $p$, varying smoothly as $p$ moves. Concretely, $\omega$ is
+    the set map
     \begin{equation}
-        \omega \colon M \to T^*M, \qquad \omega(p) = (p, \omega_p)
+        \omega \colon M \to T^*M, \qquad \omega(p) = (p, \omega_p).
     \end{equation}
-    where $\omega_p \in T_p^*M$ for each $p \in M$. At a point $p$, the
-    cotangent vector $\omega_p$ acts on a tangent vector $v \in T_pM$ and
-    returns the real number $\omega_p(v)$. For a smooth function
-    $f \in C^\infty(M)$, its differential is the basic example:
+    \begin{remark}
+        Here, ``varying smoothly'' is an informal description: as the point
+        moves, its assigned cotangent vector changes smoothly too. We will
+        not formalize this bundle-level notion here.
+    \end{remark}
+    At a point $p$, the cotangent vector $\omega_p$ acts on a tangent vector
+    $v \in T_pM$ and returns the real number $\omega_p(v)$. For a smooth
+    function $f \in C^\infty(M)$, its differential is the basic example:
     $df_p(v)=v(f)$.
 
     \subsection{Higher Differential Forms}
