@@ -1,80 +1,571 @@
-\documentclass[aspectratio=169,10pt]{beamer}
+\documentclass[aspectratio=169,11pt]{beamer}
 
 \usetheme{Madrid}
 \usecolortheme{whale}
-
-% Display alphanumeric citation keys like [BT82], [Lee13] instead of article icons
+\setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{caption}[numbered]
+\setbeamerfont{caption}{size=\small}
+
+% A single, deliberate section-page template.
+\newcommand{\slidetitlesection}[1]{%
+  \section{#1}%
+  \begin{frame}
+    \vfill
+    \begin{beamercolorbox}[sep=12pt,center,wd=\paperwidth]{section title}
+      \usebeamerfont{section title}\insertsectionnumber\quad #1
+    \end{beamercolorbox}
+    \vfill
+  \end{frame}%
+}
 
 \usepackage{amsmath,amssymb}
 \usepackage{mathtools}
 \usepackage{tikz}
 
-\title[Manifolds \& de Rham Cohomology]{From Smooth Manifolds to de Rham Cohomology}
-\subtitle{Intuition, Topology, and Significance}
-\author{Speaker}
-\institute{Department of Mathematics}
+\newcommand{\sources}[1]{\par\vfill{\scriptsize\color{black!75}#1\par}}
+
+\title[Manifolds \& de Rham]{From Smooth Manifolds to de Rham Cohomology}
+\subtitle{An Intuitive Overview}
+\author{Zifan Hua}
 \date{\today}
 
 \begin{document}
 
-\frame{\titlepage}
-
-\begin{frame}{Outline}
-  \tableofcontents
+\begin{frame}
+  \titlepage
 \end{frame}
 
-\section{Preliminaries \& Common Ground}
-\begin{frame}{What Knowledge Will We Use Today?}
-  \begin{block}{Three Familiar Pillars}
+\begin{frame}{Roadmap}
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+\slidetitlesection{Prerequisites}
+
+\begin{frame}{Prerequisites}
+  \begin{block}{Euclidean space $\mathbb{R}^n$}
+    Euclidean distance; open and closed sets.
+  \end{block}
+  \begin{block}{Multivariable calculus}
+    \begin{itemize}
+      \item Continuity and smoothness (derivatives of all orders exist).
+      \item Total derivatives, Jacobian matrices, directional derivatives.
+      \item Gradient, curl, divergence.
+    \end{itemize}
+  \end{block}
+  \begin{block}{Basic linear algebra}
+  \end{block}
+  \sources{\cite{lee2013smooth,tu2011introduction}.}
+\end{frame}
+
+\slidetitlesection{Smooth Manifolds}
+
+\begin{frame}{Temperature on Earth}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.52\textwidth}
+      \begin{block}{Earth as a unit sphere}
+        \begin{equation}
+          S^2=\{x\in\mathbb{R}^3\mid\|x\|=1\}.
+        \end{equation}
+      \end{block}
+      \begin{block}{A temperature function}
+        \begin{equation}
+          f\colon S^2\longrightarrow\mathbb{R}.
+        \end{equation}
+      \end{block}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \begin{figure}
+        \centering
+        \resizebox{0.89\linewidth}{!}{\input{../figures/sphere_unit.tex}}
+        \caption{Earth modeled by the unit sphere.}
+        \label{fig:slides-sphere}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{A Flat Map of a Small Region}
+  \begin{figure}
+    \centering
+    \resizebox{!}{0.61\textheight}{\input{../figures/sphere_chart.tex}}
+    \caption{A surface region and its flat map.}
+    \label{fig:slides-flat-map}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Overlapping Maps of Nearby Regions}
+  \begin{figure}
+    \centering
+    \resizebox{!}{0.59\textheight}{\input{../figures/sphere_overlap_maps.tex}}
+    \caption{Overlapping maps: \textcolor{green!45!black}{green} marks the same shared region.}
+    \label{fig:slides-overlapping-maps}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Visualizing $S^2$ with Two Overlapping Patches}
+  \begin{figure}
+    \centering
+    \resizebox{0.98\textwidth}{!}{\input{../figures/sphere_gluing.tex}}
+    \caption{Two overlapping patches covering $S^2$.}
+    \label{fig:slides-gluing-sphere}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Smooth Manifolds: Coordinate Charts}
+  \begin{definition}[Coordinate chart of dimension $n$]
+    Let $M$ be a Hausdorff, second-countable topological space.
+    A chart is a pair $(U,\phi)$ with $U\subseteq M$ open and
+    \begin{equation}
+      \label{eq:slides-coordinate-chart}
+      \phi\colon U\longrightarrow\phi(U)\subseteq\mathbb{R}^n
+    \end{equation}
+    a homeomorphism onto an open subset of $\mathbb{R}^n$.
+  \end{definition}
+  \sources{\cite[Chapter~1, pp.~11--13]{lee2013smooth};
+    \cite[Chapter~2]{tu2011introduction}.}
+\end{frame}
+
+\begin{frame}{Chart Maps in the Gluing Picture}
+  \begin{figure}
+    \centering
+    \begingroup
+      \def\showchartmaps{1}
+      \resizebox{0.98\textwidth}{!}{\input{../figures/sphere_gluing.tex}}
+    \endgroup
+    \caption{Chart maps $\phi_1$ and $\phi_2$ reverse the disk-to-patch deformation.}
+    \label{fig:slides-gluing-chart-maps}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Smooth Manifolds: Compatible Charts}
+  \begin{definition}[Coordinate chart of dimension $n$]
+    Let $M$ be a Hausdorff, second-countable topological space.
+    A chart is a pair $(U,\phi)$ with $U\subseteq M$ open and
+    \begin{equation*}
+      \tag{\ref{eq:slides-coordinate-chart}}
+      \phi\colon U\longrightarrow\phi(U)\subseteq\mathbb{R}^n
+    \end{equation*}
+    a homeomorphism onto an open subset of $\mathbb{R}^n$.
+  \end{definition}
+  \begin{definition}[Smooth compatibility]
+    Charts $(U,\phi)$ and $(V,\psi)$ are smoothly compatible if
+    $U\cap V=\varnothing$, or
+    \begin{equation}
+      \psi\circ\phi^{-1}\colon\phi(U\cap V)\longrightarrow\psi(U\cap V)
+    \end{equation}
+    is a smooth diffeomorphism.
+  \end{definition}
+  \sources{\cite[Chapter~1, pp.~11--13]{lee2013smooth};
+    \cite[Chapter~2]{tu2011introduction}.}
+\end{frame}
+
+\begin{frame}{The Transition Map on a Shared Point}
+  \begin{figure}
+    \centering
+    \begingroup
+      \def\showtransitionmaps{1}
+      \resizebox{0.98\textwidth}{!}{\input{../figures/sphere_gluing.tex}}
+    \endgroup
+    \caption{The same point $p$ in the overlap is marked in both patches; the
+      composite transition map sends its image in $D_1$ to its image in $D_2$.}
+    \label{fig:slides-transition-point}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Smooth Manifolds: Atlases and the Definition}
+  \begin{definition}[Smooth atlas of dimension $n$]
+    A collection $\mathcal{A}=\{(U_\alpha,\phi_\alpha)\}_{\alpha\in I}$
+    of smoothly compatible charts of dimension $n$ whose domains cover $M$:
+    \begin{equation}
+      \bigcup_{\alpha\in I}U_\alpha=M.
+    \end{equation}
+  \end{definition}
+  \begin{definition}[Smooth $n$-manifold]
+    A Hausdorff, second-countable topological space $M$ equipped with a
+    smooth atlas of dimension $n$.
+  \end{definition}
+  Euclidean space $\mathbb{R}^n$, with its standard topology and identity chart,
+  is a smooth $n$-manifold.
+  \sources{\cite[pp.~11--13; Proposition~1.17, p.~13]{lee2013smooth}.}
+\end{frame}
+
+% Detailed sphere explanations and the benefits discussion remain spoken;
+% the chart-map figure provides the visual link immediately after its definition.
+
+\slidetitlesection{Tangent and Cotangent Spaces}
+
+\begin{frame}{Tangent Directions on the Sphere}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.43\textwidth}
+      \begin{equation}
+        p\in S^2,\qquad v\in\mathbb{R}^3,\qquad v\ne0.
+      \end{equation}
+      The vector $v$ lies in the geometric tangent plane at $p$.
+      \begin{block}{The straight line leaves the sphere}
+        \begin{equation}
+          p+tv\notin S^2\qquad(t\ne0).
+        \end{equation}
+      \end{block}
+    \end{column}
+    \begin{column}{0.53\textwidth}
+      \begin{figure}
+        \centering
+        \resizebox{0.91\linewidth}{!}{\input{../figures/sphere_direction.tex}}
+        \caption{A tangent direction and the line $p+tv$.}
+        \label{fig:slides-tangent-direction}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Curves and Directional Derivatives}
+  A smooth curve through $p$:
+  \begin{equation}
+    \gamma\colon(-\epsilon,\epsilon)\to M,\qquad\gamma(0)=p.
+  \end{equation}
+  For a smooth function $f\colon M\to\mathbb{R}$,
+  \begin{equation}
+    f\circ\gamma\colon(-\epsilon,\epsilon)\to\mathbb{R},
+    \qquad t\mapsto f(\gamma(t)),
+  \end{equation}
+  with rate of change
+  \begin{equation}
+    \left.\frac{d}{dt}\right|_{t=0}f(\gamma(t)).
+  \end{equation}
+  \begin{example}[Euclidean space]
+    For $M=\mathbb{R}^n$ and $\gamma(t)=p+tv$,
+    \begin{equation}
+      \left.\frac{d}{dt}\right|_{t=0}f(\gamma(t))
+      =\left.\frac{d}{dt}\right|_{t=0}f(p+tv)=D_vf(p).
+    \end{equation}
+  \end{example}
+\end{frame}
+
+\begin{frame}{Different Curves, the Same Initial Velocity}
+  \begin{figure}
+    \centering
+    \resizebox{!}{0.62\textheight}{\input{../figures/sphere_tangent.tex}}
+    \caption{Curves with the same initial velocity represent the same tangent vector.}
+    \label{fig:slides-curve-velocity}
+  \end{figure}
+  \sources{\cite[p.~72]{lee2013smooth}.}
+\end{frame}
+
+\begin{frame}{Tangent Vectors and Tangent Spaces}
+  Let $M$ be a smooth $n$-manifold and $p\in M$.
+  Let $\gamma_1\colon(-\epsilon,\epsilon)\to M$ and
+  $\gamma_2\colon(-\epsilon,\epsilon)\to M$ be smooth curves with
+  $\gamma_1(0)=\gamma_2(0)=p$.
+  They are equivalent if, for every smooth function
+  $f\colon M\to\mathbb{R}$,
+  \begin{equation}
+    \gamma_1\sim\gamma_2
+    \quad\Longleftrightarrow\quad
+    \left.\frac{d}{dt}\right|_{t=0}f(\gamma_1(t))
+    =\left.\frac{d}{dt}\right|_{t=0}f(\gamma_2(t)).
+  \end{equation}
+  \begin{definition}
+    A \textbf{tangent vector} at $p$ is an equivalence class $v=[\gamma]$.
+    The \textbf{tangent space} is
+    \begin{equation}
+      T_pM=\{[\gamma]\mid\gamma\text{ is a smooth curve through }p\}.
+    \end{equation}
+  \end{definition}
+  \begin{equation}
+    \dim T_pM=n,
+    \qquad T_p\mathbb{R}^n\cong\mathbb{R}^n,
+    \qquad v\longleftrightarrow[t\mapsto p+tv].
+  \end{equation}
+  \sources{\cite[p.~72; Problem~3-8, p.~76; Proposition~3.10, p.~57]{lee2013smooth}.}
+\end{frame}
+
+\begin{frame}{Cotangent Vectors and Cotangent Spaces}
+  \begin{definition}
+    A \textbf{cotangent vector} at $p$ is a linear map $T_pM\to\mathbb{R}$.
+    The \textbf{cotangent space} is
+    \begin{equation}
+      T_p^*M=\operatorname{Hom}_{\mathbb{R}}(T_pM,\mathbb{R}).
+    \end{equation}
+  \end{definition}
+  \begin{example}[The differential of a smooth function]
+    For a smooth function $f\colon M\to\mathbb{R}$ and a smooth curve
+    $\gamma\colon(-\epsilon,\epsilon)\to M$ with $\gamma(0)=p$,
+    \begin{equation}
+      df_p\colon T_pM\to\mathbb{R},
+      \qquad
+      df_p([\gamma])=\left.\frac{d}{dt}\right|_{t=0}f(\gamma(t)).
+    \end{equation}
+  \end{example}
+  \sources{\cite[Chapter~11]{lee2013smooth}.}
+\end{frame}
+
+\begin{frame}{The Differential and the Euclidean Gradient}
+  Under $T_p\mathbb{R}^n\cong\mathbb{R}^n$, the gradient defines a linear map
+  \begin{equation}
+    \nabla f(p)\cdot(-)\colon\mathbb{R}^n\to\mathbb{R},
+    \qquad v\mapsto\nabla f(p)\cdot v.
+  \end{equation}
+  For the straight-line curve $\gamma(t)=p+tv$,
+  \begin{equation}
+    df_p([\gamma])
+    =\left.\frac{d}{dt}\right|_{t=0}f(p+tv)
+    =\nabla f(p)\cdot v.
+  \end{equation}
+  \begin{block}{The same linear measurement}
+    \begin{equation}
+      df_p=\nabla f(p)\cdot(-).
+    \end{equation}
+  \end{block}
+  \sources{\cite[Chapter~11]{lee2013smooth}.}
+\end{frame}
+
+\slidetitlesection{Differential Forms and the Exterior Derivative}
+
+\begin{frame}{Differential $1$-Forms}
+  \begin{definition}
+    A \textbf{differential $1$-form} $\omega$ on $M$ assigns a cotangent vector
+    $\omega_p\in T_p^*M$ to each $p\in M$, varying smoothly with $p$:
+    \begin{equation}
+      \omega_p\colon T_pM\longrightarrow\mathbb{R}.
+    \end{equation}
+  \end{definition}
+  \begin{example}
+    The differentials of a smooth function $f\colon M\to\mathbb{R}$ form a
+    $1$-form:
+    \begin{equation}
+      df\colon p\longmapsto df_p.
+    \end{equation}
+  \end{example}
+  \begin{equation}
+    \underbrace{df_p}_{\text{at one point}}
+    \qquad\qquad
+    \underbrace{df}_{\text{on the whole manifold}}.
+  \end{equation}
+  \sources{\cite[p.~360]{lee2013smooth}; an integration-first perspective:
+    \cite{tao2007differential}.}
+\end{frame}
+
+\begin{frame}{Vector Fields and $1$-Forms in Euclidean Space}
+  \begin{example}[Start with the differential]
+    For a smooth function $f\colon\mathbb{R}^n\to\mathbb{R}$ and
+    $p\in\mathbb{R}^n$,
+    \begin{equation}
+      df_p(v)=\nabla f(p)\cdot v,
+      \qquad v\in T_p\mathbb{R}^n=\mathbb{R}^n.
+    \end{equation}
+    The dot product with $\nabla f(p)$ gives $df_p$; across all points,
+    $df$ corresponds to $\nabla f$.
+  \end{example}
+  \begin{block}{Generalize to any smooth vector field}
+    For a smooth vector field $F$ on $\mathbb{R}^n$, define at each
+    $p\in\mathbb{R}^n$:
+    \begin{equation}
+      \begin{aligned}
+        (\omega_F)_p&\colon T_p\mathbb{R}^n=\mathbb{R}^n\longrightarrow\mathbb{R},\\
+        (\omega_F)_p(v)&=F(p)\cdot v,
+        \qquad v\in T_p\mathbb{R}^n=\mathbb{R}^n.
+      \end{aligned}
+    \end{equation}
+  \end{block}
+  Taking $F=\nabla f$ recovers $\omega_{\nabla f}=df$.
+  \sources{\cite[Chapter~11; Equation~(14.27), p.~368]{lee2013smooth}.}
+\end{frame}
+
+\begin{frame}{Geometric Motivation for Higher Forms}
+  A $2$-form gives a signed measurement of the parallelogram spanned by
+  $v,w\in T_pM$.
+  \begin{equation}
+    \omega_p(v,w)=-\omega_p(w,v).
+  \end{equation}
+  Swapping the two vectors changes the sign, as in a cross product.
+  \sources{\cite[Chapter~14]{lee2013smooth}.}
+\end{frame}
+
+\begin{frame}{Multilinear and Alternating Maps}
+  \begin{definition}
+    Let $V$ be a real vector space and
+    \begin{equation}
+      T\colon\underbrace{V\times\cdots\times V}_{k\text{ copies}}
+      \longrightarrow\mathbb{R}.
+    \end{equation}
+    $T$ is \textbf{multilinear} if it is linear in each argument with the others fixed.
+
+    \medskip
+    It is \textbf{alternating} if swapping any two inputs changes its sign;
+    i.e., for all $1\le i<j\le k$, we have
+    \begin{equation}
+      T(v_1,\ldots,v_i,\ldots,v_j,\ldots,v_k)
+      =-T(v_1,\ldots,v_j,\ldots,v_i,\ldots,v_k).
+    \end{equation}
+  \end{definition}
+  \sources{\cite[\S26, p.~220; \S27, pp.~229--230]{munkres1991analysis}.}
+\end{frame}
+
+\begin{frame}{Higher Differential Forms: At a Point and Globally}
+  \begin{definition}[$k$-form at a point]
+    An alternating multilinear map
+    \begin{equation}
+      \omega_p\colon
+      \underbrace{T_pM\times\cdots\times T_pM}_{k\text{ copies}}
+      \longrightarrow\mathbb{R}.
+    \end{equation}
+  \end{definition}
+  \begin{definition}[Differential $k$-form on $M$]
+    A smooth choice of a $k$-form $\omega_p$ at each $p\in M$.
+  \end{definition}
+  \begin{equation}
+    \Omega^k(M)=\{\text{smooth differential }k\text{-forms on }M\},
+    \qquad \Omega^0(M)=\{\text{smooth functions }M\to\mathbb{R}\}.
+  \end{equation}
+  \sources{\cite[``Differential Forms on Manifolds,'' pp.~359--360]{lee2013smooth}.}
+\end{frame}
+
+\begin{frame}{The Vector Space of Differential Forms}
+  For $\omega,\omega'\in\Omega^k(M)$, $a\in\mathbb{R}$, and
+  $v_1,\ldots,v_k\in T_pM$,
+  \begin{equation}
+    (\omega+\omega')_p(v_1,\ldots,v_k)
+    =\omega_p(v_1,\ldots,v_k)+\omega'_p(v_1,\ldots,v_k).
+  \end{equation}
+  \begin{equation}
+    (\omega+\omega')_p=\omega_p+\omega'_p,
+    \qquad (a\omega)_p=a\omega_p.
+  \end{equation}
+  Smoothness, multilinearity, and alternation are preserved.
+  \begin{equation}
+    \Omega^k(M)\text{ is a real vector space}.
+  \end{equation}
+  \sources{\cite[p.~360]{lee2013smooth}.}
+\end{frame}
+
+\begin{frame}{The Exterior Derivative}
+  \begin{definition}
+    The \textbf{exterior derivative} is a linear operator
+    \begin{equation}
+      d\colon\Omega^k(M)\longrightarrow\Omega^{k+1}(M).
+    \end{equation}
+  \end{definition}
+  \begin{block}{Properties}
     \begin{enumerate}
-      \item \textbf{Euclidean Space}: $\mathbb{R}^n$ as a metric space; open and closed subsets.
-      \item \textbf{Multivariable Calculus}: Given an open subset $U \subseteq \mathbb{R}^n$, a map $f \colon U \to \mathbb{R}^m$ is:
-        \begin{itemize}
-          \item Continuous;
-          \item Differentiable (Jacobian / linear approximation);
-          \item \textbf{Directional derivative}: $D_v f(p) = \left.\frac{d}{dt}\right|_{t=0} f(p + tv)$;
-          \item Smooth ($C^\infty$: derivatives of all orders exist and are continuous).
-        \end{itemize}
-      \item \textbf{Basic Linear Algebra}: Vector spaces, linear maps, dual spaces, determinants.
+      \item \textbf{Linearity:}
+        $d(a\alpha+b\beta)=a\,d\alpha+b\,d\beta$.
+      \item \textbf{On functions:} $df$ is the differential of $f$.
+      \item \textbf{Differentiating twice:}
+        \begin{equation}
+          d(d\omega)=0,\qquad d^2=0.
+        \end{equation}
     \end{enumerate}
   \end{block}
+  \sources{\cite[Theorem~14.24, pp.~365--366]{lee2013smooth}.}
 \end{frame}
 
-\section{Motivation: Local vs. Global}
-\begin{frame}{Why Smooth Manifolds?}
-  \begin{itemize}
-    \item Bridging local Euclidean coordinates with global geometry.
-    \item Common ground: PDEs on manifolds, optimization on Riemannian manifolds, and algebraic varieties.
-  \end{itemize}
+\begin{frame}{Exterior Derivatives and Vector Calculus on $\mathbb{R}^3$}
+  \begin{equation}
+    \begin{aligned}
+      d&\colon\{\text{smooth }f\colon\mathbb{R}^3\to\mathbb{R}\}
+        \to\Omega^1(\mathbb{R}^3)
+        &&\text{gradient},\\
+      d&\colon\Omega^1(\mathbb{R}^3)\to\Omega^2(\mathbb{R}^3)
+        &&\text{curl},\\
+      d&\colon\Omega^2(\mathbb{R}^3)\to\Omega^3(\mathbb{R}^3)
+        &&\text{divergence}.
+    \end{aligned}
+  \end{equation}
+  \begin{equation}
+    \Omega^4(\mathbb{R}^3)=\{0\},
+    \qquad d\colon\Omega^3(\mathbb{R}^3)\to\{0\}.
+  \end{equation}
+  \begin{block}{The familiar identities are instances of $d^2=0$}
+    \begin{equation}
+      \operatorname{curl}(\nabla f)=0,
+      \qquad\operatorname{div}(\operatorname{curl}F)=0.
+    \end{equation}
+  \end{block}
+  \sources{\cite[Equation~(14.27), p.~368; Exercise~14.28]{lee2013smooth};
+    \cite[\S4.4.1, Table~4.4.8]{bouchard_exterior_vector}.}
 \end{frame}
 
-\section{From Forms to Cohomology}
-\begin{frame}{Differential Forms \& Integration}
-  \begin{itemize}
-    \item What is a differential form?
-    \item Stokes' theorem: $\int_{\partial M} \omega = \int_M d\omega$.
-  \end{itemize}
+\slidetitlesection{de Rham Cohomology and Its Significance}
+
+\begin{frame}{Cohomology Groups}
+  For $\omega\in\Omega^k(M)$:
+  \begin{equation}
+    \omega\text{ is closed}\iff d\omega=0,
+    \qquad
+    \omega\text{ is exact}\iff\omega=d\eta
+    \text{ for some }\eta\in\Omega^{k-1}(M).
+  \end{equation}
+  \begin{definition}[de Rham cohomology]
+    For $k\ge0$,
+    \begin{equation}
+      H^k_{\mathrm{dR}}(M)
+      =\frac{\{\text{closed }k\text{-forms on }M\}}
+            {\{\text{exact }k\text{-forms on }M\}}
+      =\frac{\ker\!\left(d\colon\Omega^k(M)\to\Omega^{k+1}(M)\right)}
+            {\operatorname{im}\!\left(d\colon\Omega^{k-1}(M)\to\Omega^k(M)\right)}.
+    \end{equation}
+  \end{definition}
+  Since $d^2=0$, every exact form is closed.
+  \hfill{\small $\Omega^{-1}(M)=\{0\}$.}
+  \sources{\cite[p.~441]{lee2013smooth}.}
 \end{frame}
 
-\section{de Rham Cohomology \& Significance}
-\begin{frame}{Detecting Holes Analytically}
-  \begin{itemize}
-    \item Closed forms modulo exact forms: $H^k_{\mathrm{dR}}(M) = \ker d_k / \operatorname{im} d_{k-1}$.
-    \item Why this matters across mathematics \cite{bott1982differential,lee2013smooth}.
-  \end{itemize}
+% Sphere cohomology remains optional in the manuscript and is not part of this deck.
+
+\begin{frame}{The de Rham Theorem}
+  \begin{theorem}[de Rham]
+    For every smooth manifold $M$ and every integer $k\ge0$, there is a natural
+    isomorphism of real vector spaces
+    \begin{equation}
+      H^k_{\mathrm{dR}}(M)\cong H^k(M;\mathbb{R}).
+    \end{equation}
+    Here $H^k(M;\mathbb{R})$ is singular cohomology with real coefficients,
+    defined from the topology of $M$ alone.
+  \end{theorem}
+  \sources{\cite[Proposition~18.13, pp.~482--483; Theorem~18.14, p.~484]{lee2013smooth}.}
 \end{frame}
 
-\begin{frame}[allowframebreaks]{References}
+\begin{frame}{Conservative Vector Fields and Topology}
+  \begin{theorem}[Conservative vector fields]
+    On a simply connected domain $X\subseteq\mathbb{R}^3$, a smooth vector
+    field $F$ satisfies $\operatorname{curl}F=0$ if and only if $F=\nabla f$
+    for some smooth function $f\colon X\to\mathbb{R}$.
+  \end{theorem}
+  \begin{proof}
+  \setlength{\abovedisplayskip}{5pt}
+  \setlength{\belowdisplayskip}{3pt}
+  \begin{equation}
+    H^1(X;\mathbb{R})=0
+    \quad\xRightarrow{\text{de Rham}}\quad H^1_{\mathrm{dR}}(X)=0.
+  \end{equation}
+  \begin{equation}
+    \Longrightarrow\quad
+    \ker\!\left(d\colon\Omega^1(X)\to\Omega^2(X)\right)
+    =\operatorname{im}\!\left(d\colon\Omega^0(X)\to\Omega^1(X)\right).
+  \end{equation}
+  For a smooth vector field $F$ and its associated $1$-form $\omega_F$,
+  \begin{equation}
+    \begin{aligned}
+      \operatorname{curl}F=0 &\quad\Longleftrightarrow\quad d\omega_F=0
+        \quad\Longrightarrow\quad \omega_F\in\ker d=\operatorname{im}d\\
+        &\quad\Longrightarrow\quad
+          \exists\text{ smooth }f\colon X\to\mathbb{R}:\ \omega_F=df.
+    \end{aligned}
+  \end{equation}
+  \end{proof}
+  \sources{\cite[Corollary~16.27, p.~421; p.~472; Problem~18-2, p.~487]{lee2013smooth}.}
+\end{frame}
+
+\begin{frame}[allowframebreaks,noframenumbering]{References}
+  \scriptsize
   \bibliographystyle{alpha}
   \bibliography{../references}
 \end{frame}
 
-\begin{frame}{Acknowledgments}
-  \begin{itemize}
-    \item AI was used in preparing the formatting and structure of the manuscript and slides.
-    \item Every part of the mathematics is written by hand.
-  \end{itemize}
+\begin{frame}[noframenumbering]{Acknowledgments}
+  AI was used in typesetting and structuring the manuscript and presentation
+  slides. Every part of the mathematics is written by hand.
 \end{frame}
 
 \end{document}

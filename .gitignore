@@ -24,3 +24,7 @@
 
 # macOS metadata
 .DS_Store
+
+# Local rendering previews and review notes
+.dsh-office.*/
+manuscript-review.md

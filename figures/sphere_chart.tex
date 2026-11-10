@@ -23,10 +23,10 @@
     \node[below, font=\small] at (0, -2.2) {Surface $S^2 \subset \mathbb{R}^3$};
   \end{scope}
 
-  % Middle: Coordinate chart map phi
-  \draw[->, very thick, blue!80!black] (1.7, 0.6) to[bend left=22] 
-    node[above=4pt, font=\small] {$\phi$ (coordinate chart)} 
-    node[below=7pt, font=\scriptsize, text=gray!80!black] {homeomorphism} (4.7, 0.9);
+  % Middle: Correspondence between the surface region and its flat map
+  \draw[->, very thick, blue!80!black] (1.7, 0.6) to[bend left=22]
+    node[above=4pt, font=\small] {$\phi$}
+    node[below=7pt, font=\scriptsize, text=gray!80!black] {correspondence} (4.7, 0.9);
 
   % Right: Flat open set in R^2
   \begin{scope}[shift={(5.5,0)}]
@@ -47,6 +47,6 @@
     % Point phi(p) with label placed centered horizontally inside the orange patch
     \fill (1.2, 0.95) circle (1.8pt) node[right=2pt, font=\footnotesize] {$\phi(p)$};
     
-    \node[below, font=\small] at (1.2, -2.2) {Local Euclidean model $\mathbb{R}^2$};
+    \node[below, font=\small] at (1.2, -2.2) {Flat map in $\mathbb{R}^2$};
   \end{scope}
 \end{tikzpicture}

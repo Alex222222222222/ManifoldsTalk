@@ -1,81 +1,62 @@
 \section{Differential Forms and the Exterior Derivative}
     \label{sec:forms-derivative}
 
-    \paragraph{Note on Perspective.}
-    For an alternative perspective, Terence Tao provides an excellent
-    informal exposition of differential forms introduced directly from the
-    viewpoint of integration (see \cite{tao2006differential}, available at
-    \href{https://www.math.ucla.edu/~tao/preprints/forms.pdf}{%
-    \texttt{math.ucla.edu/\textasciitilde tao/preprints/forms.pdf}}).
-
-    \subsection{The Cotangent Bundle: A Collection of Linear Measurements}
-    At each point $p \in M$, the cotangent space $T_p^*M$ consists of linear
-    functionals on tangent vectors. To keep our focus on intuition and avoid
-    the technical overhead of fiber bundles, we define the cotangent bundle
-    directly as the set of pairs:
-    \begin{equation}
-        T^*M = \left\{
-            (p, \omega_p) \;\middle|\; p \in M, \; \omega_p \in T_p^*M
-        \right\}.
-    \end{equation}
-    Intuitively, $T^*M$ simply collects every point of the manifold together
-    with all possible cotangent vectors (linear measurements) based at that
-    point. Lee's Proposition 11.9 gives it a smooth rank-$n$ vector bundle
-    structure over $M$ \cite[Proposition~11.9, pp.~276--277]{lee2013smooth}.
-    Since the base has dimension $n$ and each fiber has dimension $n$, the
-    total space $T^*M$ has dimension $2n$.
-
     \subsection{Differential 1-Forms}
-    With the cotangent bundle in hand, a \textbf{differential $1$-form}
-    $\omega$ on $M$ assigns a cotangent vector $\omega_p \in T_p^*M$ to each
-    point $p$, varying smoothly as $p$ moves. Concretely, $\omega$ is the set
-    map
+    In the previous section, we introduced the cotangent space $T_p^*M$ at a
+    point $p$. Each element of this space is a linear map that takes a tangent
+    velocity at $p$ and returns a real number.\footnote{%
+        For an alternative, informal introduction to differential forms from
+        the viewpoint of integration, see Tao \cite{tao2007differential}.
+        The PDF link is included in the bibliography.}
+
+    A \textbf{differential $1$-form} $\omega$ on $M$ assigns a cotangent
+    vector $\omega_p \in T_p^*M$ to every point $p$, with this assignment
+    varying smoothly from point to point.\footnote{%
+        We leave the precise meaning of ``varying smoothly'' as a technical
+        detail.} Thus, at each point, we have a
+    linear measurement
     \begin{equation}
-        \omega \colon M \to T^*M, \qquad \omega(p) = (p, \omega_p).
+        \omega_p \colon T_pM \to \mathbb{R}.
     \end{equation}
 
-    \begin{remark}
-        Here, ``varying smoothly'' is an informal description: as the point
-        moves, its assigned cotangent vector changes smoothly too. We will not
-        formalize this bundle-level notion here.
-    \end{remark}
+    We already have an example: the differential $df_p$ at each point.
+    Assigning these differentials across the manifold gives the $1$-form $df$.
+    \textbf{Thus, $df_p$ is a measurement at one point, while $df$ provides
+    these measurements throughout the manifold.}
 
-    This global definition works over the whole sphere: at each point $p$,
-    there is one cotangent vector $\omega_p$, whether we describe $p$ using
-    the left-hemisphere patch, the right-hemisphere patch, or both on their
-    overlap. When we need actual numerical components, we choose a patch and
-    do the familiar local calculation there.
-
-    For a smooth function $f \in C^\infty(M)$, its differential at $p$ is
-    $df_p$, defined by $df_p(v)=v(f)$. Since $df_p \in T_p^*M$, these
-    pointwise differentials define a map
-    \begin{equation}
-        df \colon M \to T^*M, \qquad df(p) = (p, df_p).
-    \end{equation}
-    By a common abuse of notation, this map itself is called the differential
-    $df$, or a differential $1$-form.
+    Returning to temperature on the sphere, $df_p([\gamma])$ tells us how
+    quickly the temperature changes as a particle passes through $p$ along
+    $\gamma$. The $1$-form $df$ provides this temperature-change measurement
+    everywhere on the sphere.
 
     \paragraph{Vector Fields and $1$-Forms in Euclidean Space.}
-    In Euclidean space $\mathbb{R}^n$, physics and calculus usually work with
-    vector fields $F$, which assign a tangent vector $F(p)$ to each point $p$.
-    Using the standard Euclidean dot product, any vector field $F$ naturally
-    corresponds to an associated differential $1$-form $\omega_F$: at each
-    point $p$, it acts on a tangent vector $v \in T_p\mathbb{R}^n$ by taking
-    the dot product
+    Recall that at each $p \in \mathbb{R}^n$, the cotangent vector $df_p$ corresponds
+    to the vector $\nabla f(p)$ under the Euclidean dot-product identification:
+    $df_p(v) = \nabla f(p) \cdot v$. Applying this at every point, the
+    $1$-form $df$ corresponds to the gradient vector field $\nabla f$.
+    More generally, any smooth vector field $F$ on $\mathbb{R}^n$ defines an
+    associated $1$-form $\omega_F$ by
     \begin{equation}
-        \omega_F(v) = F(p) \cdot v.
+        (\omega_F)_p(v) = F(p) \cdot v, \qquad v \in T_p\mathbb{R}^n = \mathbb{R}^n.
     \end{equation}
-    Through this inner product pairing, a gradient vector field $\nabla f$
-    corresponds precisely to the differential $1$-form $df$, because
-    $\omega_{\nabla f}(v) = \nabla f(p) \cdot v = df_p(v)$. This
-    correspondence provides the bridge between vector fields and differential
-    $1$-forms.
+    Thus $df = \omega_{\nabla f}$. If $F$ is a force field and $v$ is a unit
+    direction, $(\omega_F)_p(v)$ is the force component in that direction.
+
+    \subsection{Geometric Motivation for Higher Forms}
+    A $1$-form can measure change along a single tangent direction, as $df$
+    does. To measure quantities associated with an area, as in the study of
+    curl, we use higher forms. A $2$-form takes two tangent vectors
+    $v,w \in T_pM$ and gives a signed measurement of the parallelogram they span. Swapping the vectors changes the sign of this measurement,
+    just as swapping the vectors in a cross product in $\mathbb{R}^3$
+    changes its sign:
+    \[
+        \omega_p(v,w) = -\omega_p(w,v).
+    \]
 
     \subsection{Multilinear and Alternating Maps}
-    To move from $1$-forms to higher differential forms, we recall the
-    algebraic concept of multilinear and alternating maps on a vector space
-    $V$, following Munkres \cite[\S\S26--27, pp.~220--
-    230]{munkres1991analysis}.
+    To describe these measurements, we use multilinear and alternating maps
+    on a vector space $V$, following Munkres \cite[\S26, p.~220;
+    \S27, pp.~229--230]{munkres1991analysis}.
 
     \begin{definition}[Multilinear and Alternating Maps %
         \cite{munkres1991analysis}]
@@ -100,30 +81,10 @@
         $T(\dots, v, \dots, v, \dots) = 0$.
     \end{definition}
 
-    \subsection{Exterior Product of Alternating Multilinear Maps}
-    Before moving to manifolds, we define the product algebraically on a
-    vector space $V$. Given an alternating $k$-linear map $f$ and an
-    alternating $l$-linear map $g$ on $V$, their \textbf{exterior product} (or
-    \textbf{wedge product}) $f \wedge g$ is an alternating $(k+l)$-linear map
-    on $V$ \cite[\S27, pp.~235--240]{munkres1991analysis}.
-
-    For two linear functionals $\alpha, \beta \colon V \to \mathbb{R}$, their
-    exterior product is the alternating bilinear map defined by
-    \begin{equation}
-        (\alpha \wedge \beta)(v, w)
-        = \alpha(v)\beta(w) - \alpha(w)\beta(v),
-        \qquad v, w \in V.
-    \end{equation}
-    This product is bilinear, associative, and satisfies $\alpha \wedge \beta
-    = -\beta \wedge \alpha$. More generally, for maps of degrees $k$ and $l$,
-    the product satisfies $f \wedge g = (-1)^{kl} g \wedge f$. The exact
-    formula for $f \wedge g$ can be built by induction from the formula for
-    $\alpha \wedge \beta$, though we omit those combinatorial details here.
-
     \subsection{Higher Differential Forms: At a Point and Globally}
-    We can now define differential forms of arbitrary degree $k$, following
-    the approach of Munkres (see \cite[Chapter~6,
-    p.~248]{munkres1991analysis}):
+    We can now define differential forms of arbitrary degree $k$ on a
+    manifold, following Lee \cite[``Differential Forms on Manifolds,''
+    pp.~359--360]{lee2013smooth}:
     \begin{enumerate}
         \item \textbf{At a single point $p \in M$}:\\
             A \textbf{$k$-form at $p$} is an alternating multilinear map on
@@ -136,130 +97,86 @@
         \item \textbf{On the manifold $M$ as a whole}:\\
             A \textbf{differential $k$-form} $\omega$ on $M$ is a smooth
             choice of an alternating multilinear map at each point
-            \cite[p.~248]{munkres1991analysis}.
-
-            \begin{remark}
-                Again, ``smooth choice'' is an informal description; we will
-                not formalize this notion due to the aim of this talk.
-            \end{remark}
+            \cite[p.~360]{lee2013smooth}.\footnote{%
+                As with $1$-forms, ``smooth choice'' is an informal
+                description; we do not formalize this notion in the talk.}
     \end{enumerate}
 
     We denote the space of smooth $k$-forms on $M$ by $\Omega^k(M)$, with
     $\Omega^0(M) = C^\infty(M)$ (smooth scalar functions).
-
-    A crucial dimensional consequence follows immediately: on an
-    $n$-dimensional manifold, any alternating multilinear map on more than $n$
-    tangent vectors must vanish, because any set of $k > n$ vectors in an
-    $n$-dimensional space is linearly dependent. Hence, $\Omega^k(M) = \{0\}$
-    for all $k > n$.
-
-    \subsection{The Exterior Product of Differential Forms}
-    With differential forms defined globally on $M$, we define their
-    \textbf{exterior product} pointwise, using the algebraic wedge product on
-    each tangent space $T_pM$:
-    \begin{equation}
-        \wedge \colon \Omega^k(M) \times \Omega^l(M) \to \Omega^{k+l}(M),
-        \qquad (\omega \wedge \eta)_p = \omega_p \wedge \eta_p.
-    \end{equation}
-    For two $1$-forms $\alpha$ and $\beta$, the value of $\alpha \wedge \beta$
-    on tangent vectors $v, w \in T_pM$ is therefore
-    \begin{equation}
-        (\alpha \wedge \beta)_p(v,w)
-        = \alpha_p(v)\beta_p(w) - \alpha_p(w)\beta_p(v).
-    \end{equation}
-
-    \subsection{Intuition for the Exterior Product and the Alternating Property}
-    To understand why differential forms and exterior products are defined
-    this way, we can appeal to geometric intuition built from standard
-    multivariable calculus:
-    \begin{itemize}
-        \item \textbf{$1$-forms measure change along vectors}:\\
-            A $1$-form measures how a function changes along a small tangent
-            vector $v$. This is the familiar directional derivative $df_p(v)
-            = v(f)$.
-        \item \textbf{$2$-forms measure change over parallelograms}:\\
-            A $2$-form measures how a quantity changes across a small
-            parallelogram spanned by two tangent vectors $v$ and $w$. Such a
-            measurement must be alternating simply because swapping the two
-            vectors reverses the orientation of the parallelogram, flipping
-            the sign of its signed area. This intuition is already familiar
-            from the cross product in $\mathbb{R}^3$, where $v \times w = -(w
-            \times v)$.
-        \item \textbf{The exterior product is the formula for area}:\\
-            The wedge product formula $(\alpha \wedge \beta)(v,w) =
-            \alpha(v)\beta(w) - \alpha(w)\beta(v)$ looks the way it does
-            simply because it computes the signed area of the parallelogram
-            determined by the two directional measurements.
-    \end{itemize}
-
-    This same antisymmetry appears directly in the classical curl from vector
-    calculus in $\mathbb{R}^3$. If we use the standard basis directions along
-    the $x, y, z$ axes for $\mathbb{R}^3$ as the basis for the geometric
-    tangent space at a point $(x_0, y_0, z_0)$, and consider a smooth vector
-    field $F = (F_1, F_2, F_3)$, then the curl at $(x_0, y_0, z_0)$ is given by
-    the complete formula:
-    \begin{equation}
-        \operatorname{curl} F|_{(x_0, y_0, z_0)} =
-        \begin{pmatrix}
-            \frac{\partial F_3}{\partial y}
-            - \frac{\partial F_2}{\partial z} \\[4pt]
-            \frac{\partial F_1}{\partial z}
-            - \frac{\partial F_3}{\partial x} \\[4pt]
-            \frac{\partial F_2}{\partial x}
-            - \frac{\partial F_1}{\partial y}
-        \end{pmatrix}.
-    \end{equation}
-    In particular, the circulation density across an infinitesimal
-    $xy$-parallelogram is given by the third component:
-    \begin{equation}
-        (\operatorname{curl} F)_z
-        = \frac{\partial F_2}{\partial x} - \frac{\partial F_1}{\partial y}.
-    \end{equation}
-    Swapping the axes $x$ and $y$ reverses the orientation of the boundary
-    loop and flips the sign of the curl component. The alternating property of
-    differential forms is precisely the algebraic framework that captures this
-    geometric orientation across all dimensions.
+    This is a real vector space: we add forms and multiply them by real
+    scalars point by point. For $\omega,\omega' \in \Omega^k(M)$,
+    $a \in \mathbb{R}$, and $v_1,\dots,v_k \in T_pM$,
+    \[
+        \begin{aligned}
+            (\omega_p+\omega'_p)(v_1,\dots,v_k)
+                &= \omega_p(v_1,\dots,v_k)+\omega'_p(v_1,\dots,v_k), \\
+            (\omega+\omega')_p &= \omega_p+\omega'_p, \\
+            (a\omega)_p &= a\omega_p.
+        \end{aligned}
+    \]
+    Sums and scalar multiples remain smooth and alternating.
 
     \subsection{The Exterior Derivative}
-    The central operator of differential topology is the \textbf{exterior
-    derivative} $d$. It takes each $k$-form to a $(k+1)$-form:
+    The differential of a smooth function turns a $0$-form into a $1$-form.
+    This operation extends to differential forms of every degree through an
+    operator called the \textbf{exterior derivative}:
     \begin{equation}
         d \colon \Omega^k(M) \to \Omega^{k+1}(M).
     \end{equation}
-    As detailed in \cite[Theorem~14.23, pp.~363--364]{lee2013smooth}, the
-    operator $d$ is uniquely determined by the following fundamental rules:
+    We omit its construction (see \cite[Theorem~14.24, pp.~365--366]{lee2013smooth})
+    and retain three properties needed for this talk:
     \begin{enumerate}
-        \item \textbf{$\mathbb{R}$-Linearity}:\\
-            The operator $d$ is $\mathbb{R}$-linear:
-            $d(a\alpha + b\beta) = a\,d\alpha + b\,d\beta$ for all
-            $a, b \in \mathbb{R}$ and $\alpha, \beta \in \Omega^k(M)$.
-        \item \textbf{On $0$-forms}:\\
-            For a smooth function $f \in \Omega^0(M)$, $df$ is the
-            differential defined in Section~\ref{sec:tangent-cotangent}.
-        \item \textbf{Graded Leibniz Rule}:\\
-            For $\alpha \in \Omega^k(M)$ and $\beta \in \Omega^l(M)$,
+        \item \textbf{Linearity}:\\
+            For $a,b \in \mathbb{R}$ and $\alpha,\beta \in \Omega^k(M)$,
             \[
-                d(\alpha \wedge \beta)
-                = d\alpha \wedge \beta + (-1)^k \alpha \wedge d\beta.
+                d(a\alpha + b\beta) = a\,d\alpha + b\,d\beta.
             \]
-        \item \textbf{Nilpotence (The Master Identity)}:\\
-            Applying the exterior derivative twice always yields zero:
+        \item \textbf{On functions}:\\
+            For a smooth function $f$, $df$ is the differential introduced in
+            Section~\ref{sec:tangent-cotangent}.
+        \item \textbf{Differentiating twice gives zero}:\\
+            For every differential form $\omega$,
             \[
-                d^2 = d \circ d = 0.
+                d(d\omega) = 0, \qquad \text{that is, } d^2 = 0.
             \]
     \end{enumerate}
 
-    \paragraph{Unifying Classical Vector Calculus in $\mathbb{R}^3$.} For PDE
-    modelers and analysts, the exterior derivative unifies the gradient, curl,
-    and divergence into one operator at different degrees:
+    In $\mathbb{R}^3$, the successive exterior derivatives correspond to the
+    familiar vector-calculus operators:
     \[
-        \Omega^0(\mathbb{R}^3) \xrightarrow{d = \operatorname{grad}}
-        \Omega^1(\mathbb{R}^3) \xrightarrow{d = \operatorname{curl}}
-        \Omega^2(\mathbb{R}^3) \xrightarrow{d = \operatorname{div}}
-        \Omega^3(\mathbb{R}^3).
+        \begin{aligned}
+            d &\colon C^\infty(\mathbb{R}^3) \to \Omega^1(\mathbb{R}^3)
+                &&\text{gradient}, \\
+            d &\colon \Omega^1(\mathbb{R}^3) \to \Omega^2(\mathbb{R}^3)
+                &&\text{curl}, \\
+            d &\colon \Omega^2(\mathbb{R}^3) \to \Omega^3(\mathbb{R}^3)
+                &&\text{divergence}.
+        \end{aligned}
     \]
-    Under this translation, the classical vector calculus identities
-    $\operatorname{curl}(\operatorname{grad} f) = 0$ and
-    $\operatorname{div}(\operatorname{curl} F) = 0$ are simply two instances
-    of the single identity $d^2 = 0$. This nilpotence is the algebraic
-    foundation that will lead directly to de Rham cohomology.
+    The first map sends $f$ to $df$, which we already identified with the
+    gradient in Section~\ref{sec:tangent-cotangent}. These are the familiar
+    vector-calculus operators expressed in the language of differential forms
+    on the manifold $\mathbb{R}^3$.\footnote{%
+        For the precise identifications, see Lee
+        \cite[Equation~(14.27), p.~368; Exercise~14.28]{lee2013smooth}.
+        For explicit formulas, see also Bouchard
+        \cite[\S4.4.1, Definitions~4.4.1--4.4.3 and
+        Table~4.4.8]{bouchard_exterior_vector}.}
+
+    There are no nonzero forms of degree greater than $3$ on $\mathbb{R}^3$;
+    in particular, $\Omega^4(\mathbb{R}^3)=\{0\}$.\footnote{%
+        Any four vectors in a three-dimensional tangent space are linearly
+        dependent, so every alternating $4$-linear form vanishes. The same
+        argument applies to all higher degrees.}
+    Thus, the next map $d\colon\Omega^3(\mathbb{R}^3)\to\Omega^4(\mathbb{R}^3)$
+    is zero.
+
+    The familiar identities
+    \[
+        \operatorname{curl}(\nabla f) = 0,
+        \qquad
+        \operatorname{div}(\operatorname{curl} F) = 0
+    \]
+    are instances of $d^2 = 0$. This identity is the starting point for de Rham
+    cohomology.

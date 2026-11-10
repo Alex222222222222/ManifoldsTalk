@@ -32,34 +32,39 @@
             along directions that are tangent to the surface, rather than
             pointing into the Earth's interior or out into space.
     \end{enumerate}
-    That is where manifolds come into place: we need a framework to perform
-    calculus directly on curved spaces.
+    Manifolds let us differentiate functions on curved spaces. Later, we will
+    ask the reverse question: when do given rates of change come from a single
+    globally defined function?
 
-    \subsection{The Intuition: Local Euclidean Approximation}
-    The central intuition of a manifold is \textbf{local approximation}. At
-    any point $p \in S^2$, a sufficiently small neighborhood $U \subset S^2$
-    around $p$ looks like an open region in a flat Euclidean plane
-    $\mathbb{R}^2$.
+    \subsection{The Intuition: A Flat Map of a Small Region}
+    To understand how to build a manifold, think about how we use maps of Earth.
+    We are familiar with describing a small region of Earth using a flat map.
+    Although the region lies on a curved surface, its map lies in a flat plane,
+    $\mathbb{R}^2$. Each point in the region corresponds to a point on the map,
+    and vice versa.\footnote{%
+        Analogously, an algebraic variety need not be globally affine; it can
+        be described by gluing affine open subsets along regular isomorphisms
+        of their overlaps.}
 
     \begin{figure}[htbp]
         \centering
         \input{../figures/sphere_chart.tex}
         \caption{%
-            The local coordinate chart: an open neighborhood $U$ on the sphere
-            $S^2$ is mapped homeomorphically to an open set $\phi(U) \subseteq
-            \mathbb{R}^2$, allowing local calculus on the surface.
+            Here, $U$ is the region on the sphere, $\phi(U)$ is its flat map,
+            and the arrow $\phi$ shows the correspondence.
         }
         \label{fig:sphere_chart}
     \end{figure}
 
-    \paragraph{Analogy with Algebraic Varieties.}
-    An algebraic variety is not globally affine; it is constructed by gluing
-    together affine open subsets along regular transition functions.
+    One small map covers only part of Earth. To describe the whole surface,
+    we use several overlapping maps. A place in an overlap appears on both
+    maps; by matching these shared places, we know how the regions fit together.
 
-    \subsection{Constructing \texorpdfstring{$S^2$}{S²} by Gluing Two Disks}
+    \subsection{Visualizing \texorpdfstring{$S^2$}{S²} with Two Overlapping Patches}
     \label{sec:gluing_s2}
 
-    Here is the picture to keep in mind:
+    A simple way to do this for a sphere is to glue together two patches,
+    each extending slightly beyond a hemisphere, along matching overlap strips:
     \begin{enumerate}
         \item Cut one disk from each of two parallel planes.
         \item Bend the disks into two bowls.
@@ -70,8 +75,9 @@
         \centering
         \input{../figures/sphere_gluing.tex}
         \caption{%
-            A three-step picture of gluing two disks to form $S^2$. The green
-            rims in (a) mark the regions that will overlap after bending.
+            A three-step visualization of two overlapping patches covering
+            $S^2$. The green rims in (a) remain visible on the bowls in (b)
+            and become the overlap strip in (c).
         }
         \label{fig:sphere_gluing}
     \end{figure}
@@ -83,15 +89,24 @@
     \cite[Chapter~2]{tu2011introduction}.
 
     \begin{definition}[Smooth Manifold \cite{lee2013smooth, tu2011introduction}]
-        Let $M$ be a Hausdorff, second-countable topological space. These are
-        technical assumptions that we will not discuss further; if you are
-        unfamiliar with topology, you may think of $M$ as a subspace of some
-        $\mathbb{R}^m$.
+        Let $M$ be a Hausdorff, second-countable topological space.\footnote{%
+            These are technical assumptions that we will not discuss further.
+            If you are unfamiliar with topology, you may think of $M$ as a
+            subspace of some $\mathbb{R}^m$.}
 
-        A \textbf{coordinate chart} on $M$ is a pair $(U, \phi)$, where $U
-        \subseteq M$ is open and $\phi \colon U \to \phi(U) \subseteq
-        \mathbb{R}^n$ is a homeomorphism (a continuous bijection with a
+        A \textbf{coordinate chart of dimension $n$} on $M$ is a pair
+        $(U, \phi)$, where $U \subseteq M$ is open and
+        $\phi \colon U \to \phi(U) \subseteq \mathbb{R}^n$ is a homeomorphism (a continuous bijection with a
         continuous inverse) onto an open subset of $\mathbb{R}^n$.
+
+        In Figure~\ref{fig:sphere_gluing}, the deformation takes the flat disk
+        $D_1$ to the surface patch $U_1$.\footnote{%
+            The disks $D_1$ and $D_2$ are understood as open disks. The green
+            rims represent open overlap strips inside these disks, rather
+            than just their boundary circles; the picture is schematic.}
+        Reversing this deformation gives the map $\phi_1 \colon U_1 \to D_1$.
+        Thus, the patch together with this map, $(U_1,\phi_1)$, is a chart.
+        The second patch gives a chart $(U_2,\phi_2)$ in the same way.
 
         Two charts $(U, \phi)$ and $(V, \psi)$ are \textbf{smoothly
         compatible} if either $U \cap V = \emptyset$, or the transition map
@@ -100,54 +115,39 @@
         \end{equation}
         is a $C^\infty$ diffeomorphism between open subsets of $\mathbb{R}^n$.
 
-        A \textbf{smooth atlas} $\mathcal{A}$ on $M$ is a collection of
-        smoothly compatible charts $\{(U_\alpha, \phi_\alpha)\}_{\alpha \in
-        I}$ whose domains cover $M$:
+        In Figure~\ref{fig:sphere_gluing}(a), the transition map matches the
+        green strip in $D_1$ with the green strip in $D_2$. Starting from a
+        point in the green strip of $D_1$, we bend it onto the sphere using
+        $\phi_1^{-1}$, then flatten it into $D_2$ using $\phi_2$. This gives
+        the transition map $\phi_2 \circ \phi_1^{-1}$, which describes the
+        matching used in gluing. For the sphere, we can choose the bending
+        maps so that this matching and its inverse are smooth. The two charts
+        are then smoothly compatible.
+
+        A \textbf{smooth atlas of dimension $n$} $\mathcal{A}$ on $M$ is a
+        collection of smoothly compatible charts of dimension $n$,
+        $\{(U_\alpha, \phi_\alpha)\}_{\alpha \in I}$, whose domains cover $M$:
         \begin{equation}
             \bigcup_{\alpha \in I} U_\alpha = M.
         \end{equation}
+        Since $U_1$ and $U_2$ cover the sphere, these two compatible charts
+        form a smooth atlas.
+
         A \textbf{smooth $n$-manifold} is a Hausdorff, second-countable
-        topological space $M$ together with a smooth atlas of dimension $n$.
+        topological space $M$ together with a smooth atlas of dimension $n$.\footnote{%
+            Lee defines a smooth structure using a maximal smooth atlas.
+            Every smooth atlas determines a unique maximal smooth atlas
+            \cite[Proposition~1.17, p.~13]{lee2013smooth}, so specifying a
+            smooth atlas suffices here.}
     \end{definition}
 
-    \subsection{Checking the Gluing Example Against the Definition}
-
-    Return to Figure~\ref{fig:sphere_gluing}. It shows the two bowl-shaped
-    patches and the band where they overlap. In
-    Figure~\ref{fig:sphere_transition}, the same overlap is drawn on both
-    patches: the green strip on the left patch corresponds to the green strip
-    on the right. The arrows show points in one strip mapping to corresponding
-    points in the other. This is the transition function, and it describes how
-    we glue the two patches together.
-
-    The condition in the definition is that this transition be smooth.
-
-    \begin{figure}[htbp]
-        \centering
-        \input{../figures/sphere_transition.tex}
-        \caption{%
-            Two hemispherical patches, with matching green overlap strips.
-            Arrows show corresponding points being mapped from the left strip
-            to the right.
-        }
-        \label{fig:sphere_transition}
-    \end{figure}
+    Euclidean space $\mathbb{R}^n$, with its standard topology, is itself a
+    smooth $n$-manifold. The identity map $\mathrm{id} \colon \mathbb{R}^n
+    \to \mathbb{R}^n$ gives a single chart covering the whole space, and its
+    transition map with itself is the identity, which is smooth.
 
     \subsection{The Benefit: Uniting Local Calculus with Global Coherence}
-    Why is this definition so effective?
-    \begin{itemize}
-        \item \textbf{Locally}:\\
-            We can calculate using standard multivariable calculus from
-            Section~\ref{sec:preliminaries} by pulling functions and vectors
-            back to open subsets of $\mathbb{R}^n$ via charts. No new
-            computational mechanics are needed.
-        \item \textbf{Globally}:\\
-            Because the transition maps $\psi \circ \phi^{-1}$ are smooth
-            diffeomorphisms, the multivariate chain rule guarantees that all
-            calculus operations (smoothness of functions, directional
-            derivatives, vector fields, and differential forms) are
-            coordinate-independent.
-    \end{itemize}
-    This allows us to study global derivatives, PDEs on curved geometries,
-    optimization on manifolds, and global topological invariants (such as de
-    Rham cohomology) rigorously.
+    On $\mathbb{R}^n$, the identity chart gives us ordinary multivariable
+    calculus. On a curved manifold, we perform these calculations using local
+    flat maps. Smooth changes between maps let us describe the same geometric
+    quantities consistently.
